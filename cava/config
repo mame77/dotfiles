@@ -1,0 +1,124 @@
+# CAVA設定ファイル - Nord風テーマ
+
+[general]
+# 基本動作設定
+mode = normal              # 通常モード
+framerate = 60            # フレームレート（fps）
+autosens = 1              # 自動感度調整
+overshoot = 20            # オーバーシュート値
+sensitivity = 100         # 感度設定
+
+# バー表示設定
+bars = 0                  # バー数（0=自動）
+bar_width = 2             # バー幅
+bar_spacing = 1           # バー間隔
+bar_height = 32           # バー高さ
+
+# 周波数フィルター設定
+lower_cutoff_freq = 50    # 低域カットオフ周波数
+higher_cutoff_freq = 10000 # 高域カットオフ周波数
+sleep_timer = 0           # スリープタイマー
+
+[input]
+# 音声入力設定
+method = pulse            # 入力方式（PulseAudio）
+source = auto             # 音声ソース（自動検出）
+
+# PipeWire使用時（代替設定）
+# method = pipewire
+# source = auto
+
+# その他の入力方式（コメントアウト）
+# method = alsa           # ALSA使用
+# source = hw:Loopback,1
+# method = fifo           # FIFO使用
+# source = /tmp/mpd.fifo
+# method = shmem          # 共有メモリ使用
+# source = /squeezelite-AA:BB:CC:DD:EE:FF
+# method = portaudio      # PortAudio使用
+# source = auto
+# method = sndio          # sndio使用
+# source = default
+# method = oss            # OSS使用
+# source = /dev/dsp
+# method = jack           # JACK使用
+# source = default
+
+# 音声品質設定
+# sample_rate = 44100     # サンプルレート
+# sample_bits = 16        # ビット深度
+# channels = 2            # チャンネル数
+# autoconnect = 2         # 自動接続設定
+
+[output]
+# 出力形式設定
+# method = noncurses      # 出力方式
+# orientation = bottom    # 表示方向
+# channels = stereo       # チャンネル表示
+# mono_option = average   # モノラル処理方式
+# reverse = 0             # 反転表示
+# raw_target = /dev/stdout # 生出力先
+# data_format = binary    # データ形式
+# bit_format = 16bit      # ビット形式
+# ascii_max_range = 1000  # ASCII最大範囲
+# bar_delimiter = 59      # バー区切り文字
+# frame_delimiter = 10    # フレーム区切り文字
+
+# SDL設定（グラフィカル表示用）
+# sdl_width = 1000        # SDL幅
+# sdl_height = 500        # SDL高さ
+# sdl_x = -1              # SDL X座標
+# sdl_y= -1               # SDL Y座標
+# sdl_full_screen = 0     # フルスクリーン
+
+# 軸・同期設定
+# xaxis = none            # X軸表示
+# alacritty_sync = 0      # Alacritty同期
+
+# シェーダー設定（OpenGL使用時）
+# vertex_shader = pass_through.vert    # 頂点シェーダー
+# fragment_shader = bar_spectrum.frag  # フラグメントシェーダー
+# continuous_rendering = 0             # 連続レンダリング
+# disable_blanking = 0                 # ブランキング無効化
+# show_idle_bar_heads = 1             # アイドル時バーヘッド表示
+# waveform = 0                        # 波形表示
+
+[color]
+# Nord テーマカラー設定
+background = '#2E3440'    # Nord0 - 濃いグレー背景
+foreground = '#D8DEE9'    # Nord4 - 明るいグレー前景
+
+# グラデーション設定
+gradient = 1              # グラデーション有効
+gradient_count = 8        # グラデーション色数
+
+# Nord風グラデーションカラー
+gradient_color_1 = '#88C0D0'  # Nord8 - アイスブルー（低音域）
+gradient_color_2 = '#81A1C1'  # Nord9 - フロストブルー
+gradient_color_3 = '#5E81AC'  # Nord10 - ポーラーナイトブルー
+gradient_color_4 = '#BF616A'  # Nord11 - オーロラレッド
+gradient_color_5 = '#D08770'  # Nord12 - オーロラオレンジ
+gradient_color_6 = '#EBCB8B'  # Nord13 - オーロライエロー
+gradient_color_7 = '#A3BE8C'  # Nord14 - オーロラグリーン
+gradient_color_8 = '#B48EAD'  # Nord15 - オーロラパープル（高音域）
+
+# 単色設定の例（グラデーション無効時）
+# background = '#2E3440'    # Nord0
+# foreground = '#88C0D0'    # Nord8
+
+[smoothing]
+# スムージング設定（0.8.0以降で非推奨のものもあり）
+# integral = 77           # 積分スムージング
+# monstercat = 0          # Monstercat効果
+# waves = 0               # 波効果
+# gravity = 100           # 重力効果
+# ignore = 0              # 無視設定（非推奨）
+# noise_reduction = 77    # ノイズ低減
+
+[eq]
+# イコライザー設定（周波数帯域ごとの増幅率）
+# 1 = 1                   # 低音域
+# 2 = 1                   # 低中音域
+# 3 = 1                   # 中音域
+# 4 = 1                   # 中高音域
+# 5 = 1                   # 高音域

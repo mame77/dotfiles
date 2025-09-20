@@ -1,0 +1,18 @@
+theme = nordfox
+
+font-size = 14
+cursor-style = block
+cursor-style-blink = true
+shell-integration-features = no-cursor
+
+background-opacity = 0.6
+
+window-padding-x = 7
+window-padding-y = 7
+
+
+keybind = ctrl++x=close_tab
+keybind = ctrl+t=new_tab
+keybind = ctrl+l=next_tab
+keybind = ctrl+h=previous_tab
+keybind = shift+enter=text:\x1b\r
