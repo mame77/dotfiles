@@ -20,6 +20,10 @@ input {
     transform "normal"
     position x=1280 y=0
 }
+output "DP-1" {
+    mode "2560x1440@180.000"
+    variable-refresh-rate
+}
 cursor{
 	hide-when-typing
 }
@@ -60,9 +64,10 @@ layout {
     struts {
    }
 }
-
 hotkey-overlay {
+    skip-at-startup
 }
+
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 animations {
@@ -122,7 +127,7 @@ binds {
     Mod+O repeat=false { toggle-overview; }
     MouseMiddle { toggle-overview; }
 
-    Mod+Q repeat=false { close-window; }
+    Mod+Q     { close-window; }
 
     Mod+H     { focus-column-or-monitor-left; }
     Mod+J     { focus-window-or-workspace-down; }
@@ -232,7 +237,7 @@ binds {
     Mod+W { toggle-column-tabbed-display; }
 
     Print { screenshot; }
-    Ctrl+Print { screenshot-screen; }
+    Mod+P { screenshot-screen; }
     Alt+Print { screenshot-window; }
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
