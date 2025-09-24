@@ -1,6 +1,8 @@
-theme = nordfox
-
+font-family = "Isevka Nord Font"
 font-size = 14
+
+theme = "TokyoNight Night"
+
 cursor-style = block
 cursor-style-blink = true
 shell-integration-features = no-cursor
@@ -12,7 +14,7 @@ window-padding-y = 7
 confirm-close-surface = false
 
 
-keybind = ctrl++x=close_tab
+keybind = ctrl+x=close_tab
 keybind = ctrl+t=new_tab
 keybind = ctrl+l=next_tab
 keybind = ctrl+h=previous_tab
