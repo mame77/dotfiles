@@ -1,7 +1,7 @@
 @import "../../themes/nord/waybar.css";
 
 * {
-  background-color: @background;
+  background-color: transparent;
   color: @foreground;
 
   border: none;
@@ -11,12 +11,23 @@
   font-size: 12px;
 }
 
+window#waybar {
+  background-color: transparent;
+}
+
 .modules-left {
   margin-left: 8px;
 }
 
 .modules-right {
   margin-right: 8px;
+}
+
+#workspaces {
+  background-color: @background;
+  border-radius: 8px;
+  padding: 2px 4px;
+  margin: 2px;
 }
 
 #workspaces button {
@@ -38,12 +49,18 @@
 #pulseaudio,
 #custom-omarchy,
 #custom-update {
+  background-color: @background;
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin: 2px;
   min-width: 12px;
-  margin: 0 7.5px;
 }
 
 #custom-expand-icon {
-  margin-right: 7px;
+  background-color: @background;
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin: 2px;
 }
 
 tooltip {
@@ -55,7 +72,10 @@ tooltip {
 }
 
 #clock {
-  margin-left: 8.75px;
+  background-color: @background;
+  border-radius: 8px;
+  padding: 4px 12px;
+  margin: 2px;
 }
 
 .hidden {

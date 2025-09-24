@@ -42,7 +42,7 @@ layout {
     }
     default-column-width { proportion 0.5; }
     focus-ring {
-        width 4
+        width 0
         active-color "#B0E0E6"
         inactive-color "#505050"
     }
@@ -99,13 +99,13 @@ binds {
     Mod+T hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
     Mod+G hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+B hotkey-overlay-title="Run an Application: obsidian" { spawn "obsidian"; }
-    //Mod+D hotkey-overlay-title="Run an Application: discord" { spawn "discord"; }
+    Mod+D hotkey-overlay-title="Run an Application: discord" { spawn "discord"; }
     Mod+U hotkey-overlay-title="Open a Browser: chromium" { spawn "chromium"; }
     Mod+I hotkey-overlay-title="Open a Browser: zen-browser" { spawn "zen-browser"; }
     Mod+C hotkey-overlay-title="Open a Webapp: claude" { spawn-sh "chromium --new-window --app='https://claude.ai/new'"; }
     Mod+Y hotkey-overlay-title="Open a Webapp: youtube" { spawn-sh "chromium --new-window --app='https://youtube.com'"; }
     Mod+S hotkey-overlay-title="Open a Webapp: spotify" { spawn-sh "chromium --new-window --app='https://open.spotify.com/'"; }
-    Mod+D hotkey-overlay-title="Open a Webapp: discord" { spawn-sh "chromium --new-window --app='https://discord.com/channels/@me'"; }
+    //Mod+D hotkey-overlay-title="Open a Webapp: discord" { spawn-sh "chromium --new-window --app='https://discord.com/channels/@me'"; }
     Mod+A hotkey-overlay-title="Open a Webapp: translate-langage" { spawn-sh "chromium --new-window --app='https://www.deepl.com/ja/translator'"; }
 
 
