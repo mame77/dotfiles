@@ -1,0 +1,44 @@
+[general]
+framerate = 60
+autosens = 1
+sensitivity = 100
+bars = 10
+bar_width = 2
+bar_spacing = 0
+
+[input]
+method = pulse
+source = auto
+
+[output]
+method = raw
+data_format = ascii
+ascii_max_range = 8
+bar_delimiter = 59
+frame_delimiter = 10
+
+[color]
+gradient = 1
+gradient_count = 8
+gradient_color_1 = '#66ff99'
+gradient_color_2 = '#80ffb3'
+gradient_color_3 = '#80d9ff'
+gradient_color_4 = '#99ccff'
+gradient_color_5 = '#b399ff'
+gradient_color_6 = '#cc99ff'
+gradient_color_7 = '#ff99dd'
+gradient_color_8 = '#ffb3e6'
+
+[smoothing]
+noise_reduction = 77
+
+[char]
+bar_0 = ' '
+bar_1 = '▁'
+bar_2 = '▂'
+bar_3 = '▃'
+bar_4 = '▄'
+bar_5 = '▅'
+bar_6 = '▆'
+bar_7 = '▇'
+bar_8 = '█'

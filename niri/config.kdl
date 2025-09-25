@@ -42,7 +42,7 @@ layout {
     }
     default-column-width { proportion 0.5; }
     focus-ring {
-        width 0
+        width 0.00000001
         active-color "#B0E0E6"
         inactive-color "#505050"
     }
@@ -54,6 +54,10 @@ layout {
         color "#0007"
     }
     struts {
+        top 0
+        bottom 8
+        left 8
+        right 8
    }
 }
 
@@ -91,7 +95,9 @@ window-rule {
 
 spawn-at-startup "fcitx5"
 spawn-at-startup "waybar"
-spawn-at-startup "swaybg" "-i" "/home/mame/Downloads/astro.jpg" "-m" "stretch"
+//spawn-at-startup "swaybg" "-i" "/home/mame/Pictures/huriren.jpg" "-m" "stretch"
+spawn-at-startup "swaybg" "-i" "/home/mame/Downloads/catppuccin-uzu.jpg" "-m" "stretch"
+
 
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
