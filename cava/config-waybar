@@ -8,7 +8,7 @@ bar_spacing = 0
 
 [input]
 method = pulse
-source = auto
+source = alsa_output.usb-iFi__by_AMR__iFi__by_AMR__HD_USB_Audio_0003-00.pro-output-0.monitor
 
 [output]
 method = raw

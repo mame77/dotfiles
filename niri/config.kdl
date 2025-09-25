@@ -14,12 +14,6 @@ input {
     trackpoint {
     }
 }
-/-output "eDP-1" {
-    mode "1920x1080@120.030"
-    scale 2
-    transform "normal"
-    position x=1280 y=0
-}
 output "DP-1" {
     mode "2560x1440@180.000"
     variable-refresh-rate
@@ -28,9 +22,16 @@ cursor{
 	hide-when-typing
 }
 
+gestures {
+    hot-corners {
+        off
+    }
+}
+
 workspace "one"
 workspace "two"
 workspace "three"
+
 
 layout {
     gaps 16
@@ -67,36 +68,31 @@ hotkey-overlay {
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
-animations {
-}
-
 window-rule {
 	open-maximized true
 	draw-border-with-background false
 }
 
-window-rule {
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
-    open-floating true
-}
+// 背景画像
+// huriren
+//spawn-at-startup "swaybg" "-i" "/home/mame/Pictures/huriren.jpg" "-m" "stretch"
+// catppuccin
+spawn-at-startup "swaybg" "-i" "/home/mame/Downloads/catppuccin-uzu.jpg" "-m" "stretch"
 
-/-window-rule {
-    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
-    match app-id=r#"^org\.gnome\.World\.Secrets$"#
-
-    block-out-from "screen-capture"
-
-}
-
-/-window-rule {
-    geometry-corner-radius 12
-    clip-to-geometry true
-}
-
+// 起動アプリケーション
 spawn-at-startup "fcitx5"
 spawn-at-startup "waybar"
-//spawn-at-startup "swaybg" "-i" "/home/mame/Pictures/huriren.jpg" "-m" "stretch"
-spawn-at-startup "swaybg" "-i" "/home/mame/Downloads/catppuccin-uzu.jpg" "-m" "stretch"
+spawn-at-startup "swaync"
+spawn-at-startup "discord"
+spawn-at-startup "ghostty"
+
+
+
+window-rule {
+    match app-id="discord"
+    open-on-workspace "three"
+}
+
 
 
 binds {
@@ -114,11 +110,15 @@ binds {
     //Mod+D hotkey-overlay-title="Open a Webapp: discord" { spawn-sh "chromium --new-window --app='https://discord.com/channels/@me'"; }
     Mod+A hotkey-overlay-title="Open a Webapp: translate-langage" { spawn-sh "chromium --new-window --app='https://www.deepl.com/ja/translator'"; }
 
+    Mod+Shift+N hotkey-overlay-title="Toggle Notification Center" { spawn "swaync-client" "-t" "-sw"; }
 
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
-    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+
+    Mod+Comma hotkey-overlay-title="Volume Up" { spawn "~/.config/niri/scripts/Volume.sh" "--inc"; }
+    Mod+M hotkey-overlay-title="Volume Down" { spawn "~/.config/niri/scripts/Volume.sh" "--dec"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "~/.config/niri/scripts/Volume.sh" "--inc"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "~/.config/niri/scripts/Volume.sh" "--dec"; }
+    XF86AudioMute        allow-when-locked=true { spawn "~/.config/niri/scripts/Volume.sh" "--toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn "~/.config/niri/scripts/Volume.sh" "--toggle-mic"; }
 
     XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }

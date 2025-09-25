@@ -8,7 +8,6 @@
   "modules-center": ["clock"],
   "modules-right": [
     "group/tray-expander",
-    "bluetooth",
     "network",
     "pulseaudio",
     "cpu"
@@ -56,8 +55,7 @@
     "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-disconnected": "Disconnected",
     "interval": 3,
-    "spacing": 1,
-    "on-click": "ghostty --title=TUI.float2 --command=impala"
+    "spacing": 1
   },
   "pulseaudio": {
     "format": "{icon}",

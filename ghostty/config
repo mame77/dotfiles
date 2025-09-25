@@ -1,6 +1,8 @@
 font-family = "Isevka Nord Font"
 font-size = 14
 
+command = /usr/bin/fish
+
 theme = "TokyoNight Night"
 
 cursor-style = block
