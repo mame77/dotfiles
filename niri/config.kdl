@@ -127,6 +127,9 @@ binds {
     MouseMiddle { toggle-overview; }
     Mod+Q     { close-window; }
 
+    // Discord mute toggle
+    "Alt_R" { spawn "discord-toggle-mute"; }
+
     Mod+H     { focus-column-or-monitor-left; }
     Mod+J     { focus-window-or-workspace-down; }
     Mod+K     { focus-window-or-workspace-up; }
