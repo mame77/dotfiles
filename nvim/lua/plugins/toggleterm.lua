@@ -2,4 +2,4 @@ require("toggleterm").setup({
     direction = 'float',
 })
 
-vim.keymap.set("n", "<leader>t", vim.cmd.ToggleTerm)
+vim.keymap.set("n", "<leader>o", vim.cmd.ToggleTerm)
