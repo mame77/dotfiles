@@ -49,3 +49,8 @@ function gp
     git push origin $argv
 end
 
+# tmux a || tmux  → tm
+function tm
+    tmux a || tmux 
+end
+
