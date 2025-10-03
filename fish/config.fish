@@ -19,13 +19,13 @@ function mkcd
     cd $argv[1]
 end
 
-# git checkout OO → go OO
-function go
+# git checkout OO → gco OO
+function gco
     git checkout $argv
 end
 
-# git checkout -b OO → gb OO
-function gb
+# git checkout -b OO → gcb OO
+function gcb
     git checkout -b $argv
 end
 
@@ -53,4 +53,7 @@ end
 function tm
     tmux a || tmux 
 end
-
+# mode非表示
+function fish_mode_prompt
+    # 何も表示しない（空の関数）
+end
