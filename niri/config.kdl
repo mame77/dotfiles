@@ -72,6 +72,10 @@ window-rule {
 	open-maximized true
 	draw-border-with-background false
 }
+window-rule {
+    match app-id="zen"
+    open-focused true
+}
 
 // 背景画像
 // huriren
