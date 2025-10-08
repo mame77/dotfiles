@@ -1,0 +1,37 @@
+prefer-no-csd
+
+input {
+    keyboard {
+        xkb {
+        }
+        numlock
+    }
+    touchpad {
+        tap
+        natural-scroll
+    }
+    mouse {
+    }
+    trackpoint {
+    }
+}
+
+output "DP-1" {
+    mode "2560x1440@180.000"
+    variable-refresh-rate
+}
+
+// type cursor hide
+cursor{
+	hide-when-typing
+}
+
+// gesture off
+gestures {
+    hot-corners {
+        off
+    }
+}
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
