@@ -4,6 +4,8 @@ vim.keymap.set('n', '<leader>j', vim.cmd.Ex)
 vim.keymap.set('n', '<leader>x', vim.cmd.bd)
 vim.keymap.set('n', '<leader>k', vim.cmd.w)
 vim.keymap.set('n', '<leader>q', vim.cmd.q)
+vim.keymap.set('n', '<leader>d', vim.cmd.terminal)
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>')
 
 vim.keymap.set({'n', 'v', 'x'}, '<leader>y', '"+y<CR>')
 

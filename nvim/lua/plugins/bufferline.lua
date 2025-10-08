@@ -1,5 +1,7 @@
 require("bufferline").setup({
 })
 
-vim.keymap.set('n', '<Tab>', vim.cmd.BufferLineCycleNext)
-vim.keymap.set('n', '<S-Tab>', vim.cmd.BufferLineCyclePrev)
+vim.keymap.set('n', '<S-h>', '<cmd>BufferLineCyclePrev<cr>')
+vim.keymap.set('n', '<S-l>', '<cmd>BufferLineCycleNext<cr>')
+vim.keymap.set('n', '<S-x>', '<cmd>bdelete<cr>')
+

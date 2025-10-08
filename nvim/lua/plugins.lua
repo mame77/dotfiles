@@ -1,31 +1,28 @@
 local plugins = {
-    {
-        src = 'https://github.com/nvim-telescope/telescope.nvim', 
-    },
-    {
-        src = 'https://github.com/Saghen/blink.cmp',
-	},
-    {
-		src = 'https://github.com/neovim/nvim-lspconfig',
-	},
-    {
-		src = 'https://github.com/akinsho/toggleterm.nvim',
-	},
-    {
-		src = 'https://github.com/windwp/nvim-autopairs',
-	},
-    {
-		src = 'https://github.com/nvim-treesitter/nvim-treesitter',
-	},
-    {
-		src = 'https://github.com/lukas-reineke/indent-blankline.nvim',
-	},
-    {
-		src = 'https://github.com/folke/trouble.nvim',
-	},
-    {
-		src = 'https://github.com/akinsho/bufferline.nvim',
-	},
+    -- telescope
+    {src = 'https://github.com/nvim-telescope/telescope.nvim',},
+    -- blink
+    {src = 'https://github.com/Saghen/blink.cmp',},
+    -- lspconfig
+    {src = 'https://github.com/neovim/nvim-lspconfig'},
+    -- toggleterm
+    {src = 'https://github.com/akinsho/toggleterm.nvim'},
+    -- autopairs
+    {src = 'https://github.com/windwp/nvim-autopairs'},
+    -- treesitter
+    {src = 'https://github.com/nvim-treesitter/nvim-treesitter'},
+    -- blankline
+    {src = 'https://github.com/lukas-reineke/indent-blankline.nvim'},
+    -- trouble
+    {src = 'https://github.com/folke/trouble.nvim'},
+    -- bufferline
+    {src = 'https://github.com/akinsho/bufferline.nvim'},
+    -- nui
+    {src = 'https://github.com/MunifTanjim/nui.nvim'},
+    -- notify
+    {src = 'https://github.com/rcarriga/nvim-notify'},
+    -- noice
+    {src = 'https://github.com/folke/noice.nvim'},
 }
 vim.pack.add(plugins)
 
@@ -39,9 +36,12 @@ require("plugins.toggleterm")
 require("plugins.autopair")
 -- treesitter
 require("plugins.treesitter")
--- indent
-require("plugins.indent")
+-- blankline
+require("plugins.blankline")
 -- trouble
 require("plugins.trouble")
 -- bufferline
 require("plugins.bufferline")
+-- noice
+require("plugins.noice")
+

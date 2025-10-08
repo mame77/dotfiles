@@ -31,3 +31,4 @@ vim.opt.modifiable = true
 
 vim.opt.termguicolors = true
 vim.opt.winblend = 0
+
