@@ -1,7 +1,7 @@
 font-family = "Isevka Nord Font"
 font-size = 14
 
-theme = "TokyoNight Night"
+theme = "/home/mame/.local/share/nvim/site/pack/core/opt/tokyonight.nvim/extras/ghostty/tokyonight_night"
 
 cursor-style = block
 cursor-style-blink = true
