@@ -5,9 +5,6 @@ spawn-at-startup "swaync"
 spawn-at-startup "discord"
 spawn-at-startup "ghostty"
 
-// wall paper
-spawn-at-startup "swaybg" "-i" "/home/mame/dotfiles/niri/red-solar.jpg" "-m" "stretch"
-
 // no startup hotkeymap
 hotkey-overlay {
     skip-at-startup

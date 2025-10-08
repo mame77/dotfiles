@@ -12,9 +12,17 @@
       "rev": "005b560",
       "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
     },
+    "noice.nvim": {
+      "rev": "0427460",
+      "src": "https://github.com/folke/noice.nvim"
+    },
     "nord.nvim": {
       "rev": "80c1e53",
       "src": "https://github.com/shaunsingh/nord.nvim"
+    },
+    "nui.nvim": {
+      "rev": "de74099",
+      "src": "https://github.com/MunifTanjim/nui.nvim"
     },
     "nvim": {
       "rev": "af58927",
@@ -27,6 +35,10 @@
     "nvim-lspconfig": {
       "rev": "e688b48",
       "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-notify": {
+      "rev": "8701bec",
+      "src": "https://github.com/rcarriga/nvim-notify"
     },
     "nvim-treesitter": {
       "rev": "42fc28ba",

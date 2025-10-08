@@ -32,3 +32,6 @@ layout {
    }
 }
 
+// wall paper
+spawn-at-startup "swaybg" "-i" "/home/mame/dotfiles/niri/screen/huriren.jpg" "-m" "stretch"
+
