@@ -42,6 +42,8 @@ require("plugins.blankline")
 require("plugins.trouble")
 -- bufferline
 require("plugins.bufferline")
+-- noify
+require("plugins.notify")
 -- noice
 require("plugins.noice")
 
