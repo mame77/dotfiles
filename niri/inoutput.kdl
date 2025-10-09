@@ -16,7 +16,7 @@ input {
     }
 }
 
-output "DP-1" {
+output "DP-2" {
     mode "2560x1440@180.000"
     variable-refresh-rate
 }
