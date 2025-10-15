@@ -17,12 +17,16 @@ local plugins = {
     {src = 'https://github.com/folke/trouble.nvim'},
     -- bufferline
     {src = 'https://github.com/akinsho/bufferline.nvim'},
-    -- nui
+    -- nui (noice)
     {src = 'https://github.com/MunifTanjim/nui.nvim'},
-    -- notify
+    -- notify (noice)
     {src = 'https://github.com/rcarriga/nvim-notify'},
     -- noice
     {src = 'https://github.com/folke/noice.nvim'},
+    -- plenary (codecompanion)
+    {src = 'https://github.com/nvim-lua/plenary.nvim'},
+    -- codecompanion
+    {src = 'https://github.com/olimorris/codecompanion.nvim'},
 }
 vim.pack.add(plugins)
 
@@ -46,4 +50,6 @@ require("plugins.bufferline")
 require("plugins.notify")
 -- noice
 require("plugins.noice")
+-- codecompanion
+require("plugins.codecompanion")
 
