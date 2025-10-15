@@ -13,8 +13,11 @@ vim.opt.signcolumn = "yes"
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 6
 
+vim.opt.signcolumn = "yes"
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"
+vim.opt.signcolumn = "yes"
+vim.diagnostic.config({ virtual_text = true })
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -31,4 +34,5 @@ vim.opt.modifiable = true
 
 vim.opt.termguicolors = true
 vim.opt.winblend = 0
+
 
