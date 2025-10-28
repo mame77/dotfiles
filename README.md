@@ -4,6 +4,7 @@
 ```zsh
 cd ~/dotfiles
 ```
+2. 
 ```zsh
 ./link.sh
 ```
