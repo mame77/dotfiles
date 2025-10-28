@@ -1,21 +1,21 @@
+
+theme = "Tokyo Night"
+
 font-family = "Isevka Nord Font"
 font-size = 14
-
-theme = "/home/mame/.local/share/nvim/site/pack/core/opt/tokyonight.nvim/extras/ghostty/tokyonight_night"
+font-feature = -dlig
 
 cursor-style = block
 cursor-style-blink = true
 shell-integration-features = no-cursor
 
 background-opacity = 0.8
-
-window-padding-x = 7
-window-padding-y = 7
+gtk-titlebar = true
 confirm-close-surface = false
+app-notifications = no-config-reload, no-clipboard-copy
 
+window-theme = ghostty
+window-decoration = none
+window-padding-x = 6
+window-padding-y = 6
 
-keybind = ctrl+x=close_tab
-keybind = ctrl+t=new_tab
-keybind = ctrl+l=next_tab
-keybind = ctrl+h=previous_tab
-keybind = shift+enter=text:\x1b\r
