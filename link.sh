@@ -1,32 +1,34 @@
-#!/usr/bin/env fish
+#!/usr/bin/env zsh
 
-set tmux     "tmux"
-set ghostty  "ghostty"
-set nvim     "nvim"
-set niri     "niri"
-set waybar   "waybar"
+zshrc="zsh/.zshrc"
+tmux="tmux"
+ghostty="ghostty"
+nvim="nvim"
+niri="niri"
+waybar="waybar"
 
-function link_file
-    set link_file (pwd)/$argv[1]
-    set file_name (basename $argv[1])
-    set link_target $argv[2]/$file_name
+function link_file { local file_name="$1" local target_dir="$2"
+    local link_name="${3:-$(basename $file_name)}"
+    local link_file="$(pwd)/$file_name"
+    local link_target="${target_dir}/${link_name}"
     
     # if exist
-    if test -L $link_target
-        echo -e "$file_name \e[32malready linked\e[0m"
+    if [[ -L "$link_target" ]]; then
+        echo -e "$link_name \e[32malready linked\e[0m"
         return
-    end
-    if test -f $link_target
-        echo -e "$file_name \e[31mexists\e[0m"
+    fi
+    if [[ -e "$link_target" ]]; then
+        echo -e "$link_name \e[31mexists\e[0m"
         return
-    end
+    fi
     # create symbliclink
-    ln -s $link_file $link_target && echo -e "$file_name \e[32mlinked\e[0m"
-end
+    ln -s "$link_file" "$link_target" && echo -e "$link_name \e[32mlinked\e[0m"
+}
 
-# file link
-link_file $tmux    $HOME/.config
-link_file $ghostty $HOME/.config
-link_file $nvim    $HOME/.config
-link_file $niri    $HOME/.config
-link_file $waybar  $HOME/.config
+# link
+link_file "$zshrc" "$HOME" ".zshrc"
+link_file "$tmux"    "$HOME/.config"
+link_file "$ghostty" "$HOME/.config"
+link_file "$nvim"    "$HOME/.config"
+link_file "$niri"    "$HOME/.config"
+link_file "$waybar"  "$HOME/.config"
