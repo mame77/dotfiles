@@ -19,3 +19,7 @@ window-decoration = none
 window-padding-x = 6
 window-padding-y = 6
 
+# cursor light
+# custom-shader = ~/dotfiles/ghostty/shaders/cursor_frozen.glsl
+# cursor-style-blink = false
+
