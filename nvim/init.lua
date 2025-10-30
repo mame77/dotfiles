@@ -1,3 +1,4 @@
+-- minimal configuration
 
 --mouse
 vim.opt.mouse = ""
@@ -12,6 +13,7 @@ vim.opt.wrap = false
 vim.opt.scrolloff = 6
 vim.opt.termguicolors = true
 -- indent
+vim.opt.swapfile = false 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
@@ -21,7 +23,7 @@ vim.opt.hlsearch = false
 vim.opt.ignorecase = true
 vim.diagnostic.config({ virtual_text = true })
 -- auto completion
-vim.opt.pumheight = 9
+vim.opt.pumheight = 5
 vim.opt.completeopt = { "fuzzy", "menuone", "noselect" }
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
@@ -35,21 +37,21 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 vim.pack.add({
-    { src = 'https://github.com/neovim/nvim-lspconfig' },               -- lspconfig
-    { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },     -- treesitter
-    { src = 'https://github.com/lukas-reineke/indent-blankline.nvim' }, -- blankline
-    { src = 'https://github.com/akinsho/bufferline.nvim' },             -- bufferline
+    -- plugin
     { src = 'https://github.com/nvim-mini/mini.pick' },                 -- minipick
+    { src = 'https://github.com/lukas-reineke/indent-blankline.nvim' }, -- blankline
+    { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },     -- treesitter
+    { src = 'https://github.com/neovim/nvim-lspconfig' },               -- lspconfig
+    -- notification
+    { src = 'https://github.com/MunifTanjim/nui.nvim'},                 -- nui
+    { src = 'https://github.com/rcarriga/nvim-notify'},                 -- notify
+    { src = 'https://github.com/folke/noice.nvim'},                     -- noice
+    -- colorscheme
     { src = 'https://github.com/folke/tokyonight.nvim' },               -- tokyonight
-    -- noice
-    { src = 'https://github.com/MunifTanjim/nui.nvim'},
-    { src = 'https://github.com/rcarriga/nvim-notify'},
-    { src = 'https://github.com/folke/noice.nvim'},
 });
-
+-- minipick
 require('mini.pick').setup()
-require('bufferline').setup()
---blankline
+-- blankline
 require("ibl").setup({
     indent = { char = "│", },
         scope = {
@@ -58,15 +60,6 @@ require("ibl").setup({
         show_end = true,
     }
 })
--- noice
-require("noice").setup({
-  presets = { command_palette = true },
-})
-require("notify").setup({
-  timeout = 1500,
-  stages = "static",
-  top_down = false,
-})
 -- treesitter
 require('nvim-treesitter.configs').setup({
     ensure_installed = { 'lua', 'go', 'typescript', 'javascript', 'html', 'css' },
@@ -74,6 +67,7 @@ require('nvim-treesitter.configs').setup({
     highlight = { enable = true },
 })
 -- lsp
+vim.lsp.enable('gopls')
 vim.lsp.config('lua_ls', {
     settings = {
         Lua = {
@@ -83,7 +77,22 @@ vim.lsp.config('lua_ls', {
         },
     },
 })
-
+-- noice
+require("notify").setup({
+  timeout = 1500,
+  stages = "static",
+  top_down = false,
+})
+require("noice").setup({
+  presets = { command_palette = true },
+})
+-- colorscheme
+vim.cmd.colorscheme('tokyonight-night')
+vim.api.nvim_set_hl(0, "CursorLineNr", {
+  fg = "#ffffff",
+  bold = true,
+})
+--keymap
 vim.g.mapleader = ' '
 vim.keymap.set('n', '<leader>j', vim.cmd.Ex)
 vim.keymap.set('n', '<leader>k', vim.cmd.w)
@@ -91,16 +100,9 @@ vim.keymap.set('n', '<leader>q', vim.cmd.q)
 vim.keymap.set('n', '<leader>t', vim.cmd.terminal)
 vim.keymap.set('n', '<leader>x', vim.cmd.bd)
 vim.keymap.set({'n', 'v', 'x'}, '<leader>y', '"+y')
-
+vim.keymap.set({'n', 'v', 'x'}, '<leader>p', '"+p')
+-- minipick
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>');
 vim.keymap.set('n', '<leader>s', ':Pick grep_live<CR>');
 vim.keymap.set('n', '<leader>b', ':Pick buffers<CR>');
-vim.keymap.set('n', '<S-h>', '<cmd>BufferLineCyclePrev<cr>')
-vim.keymap.set('n', '<S-l>', '<cmd>BufferLineCycleNext<cr>')
-
-vim.cmd.colorscheme('tokyonight')
-vim.api.nvim_set_hl(0, "CursorLineNr", {
-  fg = "#ffffff",
-  bold = true,
-})
 
