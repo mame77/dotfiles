@@ -1,11 +1,9 @@
--- minimal configuration
-
---mouse
+-- mouse
 vim.opt.mouse = ""
 vim.opt.guicursor = ""
 -- display
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 vim.opt.signcolumn = "yes"
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"
@@ -35,9 +33,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end
     end,
 })
-
+-- plugin
 vim.pack.add({
-    -- plugin
     { src = 'https://github.com/nvim-mini/mini.pick' },                 -- minipick
     { src = 'https://github.com/echasnovski/mini.pairs' },              -- minipairs
     { src = 'https://github.com/lukas-reineke/indent-blankline.nvim' }, -- blankline
@@ -93,17 +90,16 @@ vim.api.nvim_set_hl(0, "CursorLineNr", {
   fg = "#ffffff",
   bold = true,
 })
---keymap
+-- keymap
 vim.g.mapleader = ' '
 vim.keymap.set('n', '<leader>j', vim.cmd.Ex)
 vim.keymap.set('n', '<leader>k', vim.cmd.w)
-vim.keymap.set('n', '<leader>q', vim.cmd.q)
 vim.keymap.set('n', '<leader>t', vim.cmd.terminal)
 vim.keymap.set('n', '<leader>x', vim.cmd.bd)
 vim.keymap.set({'n', 'v', 'x'}, '<leader>y', '"+y')
 vim.keymap.set({'n', 'v', 'x'}, '<leader>p', '"+p')
 -- minipick
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>');
-vim.keymap.set('n', '<leader>s', ':Pick grep_live<CR>');
-vim.keymap.set('n', '<leader>b', ':Pick buffers<CR>');
+vim.keymap.set('n', '<leader>g', ':Pick grep_live<CR>');
+vim.keymap.set('n', '<leader>e', ':Pick buffers<CR>');
 
