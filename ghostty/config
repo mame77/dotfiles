@@ -1,25 +1,24 @@
 
 theme = "Tokyo Night"
-
+# font
 font-family = "Isevka Nord Font"
 font-size = 14
 font-feature = -dlig
-
+# cursor
 cursor-style = block
 cursor-style-blink = true
 shell-integration-features = no-cursor
-
-background-opacity = 1
-gtk-titlebar = true
-confirm-close-surface = false
-app-notifications = no-config-reload, no-clipboard-copy
-
-window-theme = ghostty
-window-decoration = none
-window-padding-x = 6
-window-padding-y = 6
-
 # cursor light
 # custom-shader = ~/dotfiles/ghostty/shaders/cursor_frozen.glsl
 # cursor-style-blink = false
+# display
+window-theme = ghostty
+background-opacity = 1
+window-decoration = none
+window-padding-x = 6
+window-padding-y = 6
+# other
+gtk-titlebar = true
+confirm-close-surface = false
+app-notifications = no-config-reload, no-clipboard-copy
 
