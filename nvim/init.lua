@@ -39,6 +39,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.pack.add({
     -- plugin
     { src = 'https://github.com/nvim-mini/mini.pick' },                 -- minipick
+    { src = 'https://github.com/echasnovski/mini.pairs' },              -- minipairs
     { src = 'https://github.com/lukas-reineke/indent-blankline.nvim' }, -- blankline
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },     -- treesitter
     { src = 'https://github.com/neovim/nvim-lspconfig' },               -- lspconfig
@@ -49,8 +50,8 @@ vim.pack.add({
     -- colorscheme
     { src = 'https://github.com/folke/tokyonight.nvim' },               -- tokyonight
 });
--- minipick
 require('mini.pick').setup()
+require('mini.pairs').setup()
 -- blankline
 require("ibl").setup({
     indent = { char = "│", },
@@ -58,9 +59,8 @@ require("ibl").setup({
         enabled = false,
         show_start = true,
         show_end = true,
-    }
-})
--- treesitter
+    } })
+-- treesitter 
 require('nvim-treesitter.configs').setup({
     ensure_installed = { 'lua', 'go', 'typescript', 'javascript', 'html', 'css' },
     auto_install = true,
@@ -77,12 +77,13 @@ vim.lsp.config('lua_ls', {
         },
     },
 })
--- noice
+-- notify
 require("notify").setup({
   timeout = 1500,
   stages = "static",
   top_down = false,
 })
+-- noice
 require("noice").setup({
   presets = { command_palette = true },
 })
