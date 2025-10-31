@@ -11,6 +11,7 @@ export BUN_INSTALL="$HOME/.bun"
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 # alias
 alias ..="cd .."
+alias ..="cd ../.."
 alias ls="ls --color=auto"
 alias grep='grep --color=auto'
 # git

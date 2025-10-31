@@ -44,6 +44,7 @@ vim.pack.add({
     { src = 'https://github.com/MunifTanjim/nui.nvim'},                 -- nui
     { src = 'https://github.com/rcarriga/nvim-notify'},                 -- notify
     { src = 'https://github.com/folke/noice.nvim'},                     -- noice
+    { src = 'https://github.com/github/copilot.vim' },               -- tokyonight
     -- colorscheme
     { src = 'https://github.com/folke/tokyonight.nvim' },               -- tokyonight
 });
