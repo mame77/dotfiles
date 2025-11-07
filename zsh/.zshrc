@@ -14,6 +14,7 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ls="ls --color=auto"
 alias grep='grep --color=auto'
+alias nv='nvim'
 # git
 alias gcm="git commit"
 alias gcma="git commit --amend"
@@ -23,7 +24,6 @@ alias gpf="git push --force-with-lease origin HEAD"
 # Plugins
 zstyle ':completion:*' menu select
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/zsh-autopair/autopair.zsh
 # prompt
 git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
