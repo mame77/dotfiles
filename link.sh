@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
-zshrc="zsh/.zshrc"
+gitconfig=".gitconfig"
+zshrc=".zshrc"
 tmux="tmux"
 ghostty="ghostty"
 nvim="nvim"
@@ -26,6 +27,7 @@ function link_file { local file_name="$1" local target_dir="$2"
 }
 
 # link
+link_file "$gitconfig" "$HOME" ".gitconfig"
 link_file "$zshrc" "$HOME" ".zshrc"
 link_file "$tmux"    "$HOME/.config"
 link_file "$ghostty" "$HOME/.config"

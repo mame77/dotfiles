@@ -12,8 +12,7 @@ vim.opt.termguicolors = true
 -- indent
 vim.opt.swapfile = false 
 vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
+vim.opt.shiftwidth = 4 vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.hlsearch = false
 vim.opt.ignorecase = true
@@ -35,7 +34,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- plugin
 vim.pack.add({
     { src = 'https://github.com/nvim-mini/mini.pick' },                 -- minipick
-    { src = 'https://github.com/echasnovski/mini.pairs' },              -- minipairs
+    -- { src = 'https://github.com/echasnovski/mini.pairs' },              -- minipairs
     { src = 'https://github.com/lewis6991/gitsigns.nvim' },             -- gitsigns
     { src = 'https://github.com/lukas-reineke/indent-blankline.nvim' }, -- ibl
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },     -- treesitter
@@ -46,7 +45,7 @@ vim.pack.add({
     { src = 'https://github.com/folke/tokyonight.nvim' },               -- tokyonight
 });
 require('mini.pick').setup()
-require('mini.pairs').setup()
+-- require('mini.pairs').setup()
 require('gitsigns').setup()
 require("ibl").setup({ indent = { char = "│" }, scope = { enabled = false } })
 require('nvim-treesitter.configs').setup({
