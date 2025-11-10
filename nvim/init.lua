@@ -64,10 +64,11 @@ vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ffffff", bold = true })
 
 -- keymap
 vim.g.mapleader = ' '
+vim.keymap.set('n', 'q:', '<Nop>')
+
 vim.keymap.set('n', '<leader>j', vim.cmd.Ex)
 vim.keymap.set('n', '<leader>k', vim.cmd.w)
 vim.keymap.set('n', '<leader>t', vim.cmd.term)
-vim.keymap.set('n', '<leader>x', vim.cmd.bd)
 vim.keymap.set('n', '<C-j>', 'o<Esc>k')
 vim.keymap.set({'v', 'x'}, '<leader>y', '"+y')
 
