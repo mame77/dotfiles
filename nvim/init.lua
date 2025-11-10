@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- plugin
 vim.pack.add({
     { src = 'https://github.com/nvim-mini/mini.pick' },                 -- minipick
-    -- { src = 'https://github.com/echasnovski/mini.pairs' },              -- minipairs
+    { src = 'https://github.com/echasnovski/mini.pairs' },              -- minipairs
     { src = 'https://github.com/lewis6991/gitsigns.nvim' },             -- gitsigns
     { src = 'https://github.com/lukas-reineke/indent-blankline.nvim' }, -- ibl
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },     -- treesitter
@@ -45,7 +45,7 @@ vim.pack.add({
     { src = 'https://github.com/folke/tokyonight.nvim' },               -- tokyonight
 });
 require('mini.pick').setup()
--- require('mini.pairs').setup()
+require('mini.pairs').setup()
 require('gitsigns').setup()
 require("ibl").setup({ indent = { char = "│" }, scope = { enabled = false } })
 require('nvim-treesitter.configs').setup({
@@ -68,7 +68,7 @@ vim.keymap.set('n', '<leader>j', vim.cmd.Ex)
 vim.keymap.set('n', '<leader>k', vim.cmd.w)
 vim.keymap.set('n', '<leader>t', vim.cmd.term)
 vim.keymap.set('n', '<leader>x', vim.cmd.bd)
-vim.keymap.set('n', '<C-j>', 'o<Esc>')
+vim.keymap.set('n', '<C-j>', 'o<Esc>k')
 vim.keymap.set({'v', 'x'}, '<leader>y', '"+y')
 
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>');
