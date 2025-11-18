@@ -6,9 +6,8 @@
 [alias]
   st = status
   sw = switch
-  co = checkout
   br = branch
   cm = commit -m
-  df = diff
+  as = "!git add . && git status"
 [credential]
 	helper = store
