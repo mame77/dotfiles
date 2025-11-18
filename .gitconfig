@@ -8,7 +8,7 @@
   sw = switch
   br = branch
   cm = commit -m
-  ps = push origin
   as = "!git add . && git status"
+  ps = !git push origin $(git rev-parse --abbrev-ref HEAD)
 [credential]
 	helper = store
