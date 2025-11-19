@@ -6,9 +6,8 @@
 [alias]
   st = status
   sw = switch
-  br = branch
   cm = commit -m
-  as = "!git add . && git status"
+  ad = "!git add $1 && git status"
   ps = !git push origin $(git rev-parse --abbrev-ref HEAD)
 [credential]
 	helper = store
