@@ -11,3 +11,5 @@
   ps = !git push origin $(git rev-parse --abbrev-ref HEAD)
 [credential]
 	helper = store
+
+
