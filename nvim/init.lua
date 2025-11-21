@@ -41,6 +41,7 @@ vim.pack.add({
     { src = 'https://github.com/rcarriga/nvim-notify' },                -- notify
     { src = 'https://github.com/folke/noice.nvim' },                    -- noice
     { src = 'https://github.com/folke/tokyonight.nvim' },               -- tokyonight
+
 });
 require('mini.pick').setup()
 require('mini.pairs').setup()
@@ -57,7 +58,7 @@ vim.lsp.config('lua_ls', {
 })
 require("notify").setup({ timeout = 1500, stages = "static", top_down = false })
 require("noice").setup({ presets = { command_palette = true } })
-vim.cmd.colorscheme('tokyonight-night')
+vim.cmd.colorscheme ('tokyonight-day')
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ffffff", bold = true })
 
 -- keymap
