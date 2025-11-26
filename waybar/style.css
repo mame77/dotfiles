@@ -1,4 +1,7 @@
-@import "../../themes/nord/waybar.css";
+/* @import "../../themes/nord/waybar.css"; */
+
+@define-color background #ffffff;
+@define-color foreground #000000;
 
 * {
   background-color: transparent;
@@ -47,13 +50,31 @@ window#waybar {
 #network,
 #bluetooth,
 #pulseaudio,
+#backlight,
 #custom-omarchy,
-#custom-update {
+#custom-update,
+#custom-date {
   background-color: @background;
   border-radius: 8px;
   padding: 6px 10px;
   margin: 3px;
   min-width: 14px;
+}
+
+#pulseaudio:not(.muted) {
+  background-color: #ffff00;
+  color: #000000;
+}
+
+#battery.critical {
+  background-color: #ffff00;
+  color: #000000;
+}
+
+#battery.charging,
+#battery.plugged {
+  background-color: #00ff00;
+  color: #000000;
 }
 
 #custom-expand-icon {

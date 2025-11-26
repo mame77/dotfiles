@@ -1,98 +1,91 @@
-
-hotkey-overlay { skip-at-startup }
+// setting
+input {
+    keyboard {
+        numlock
+        repeat-delay 600
+        repeat-rate 30
+    }
+    touchpad {
+        tap
+        natural-scroll
+        scroll-factor 0.3
+    }
+}
+cursor {
+    hide-when-typing
+}
+output "eDP-1" {
+    mode "1920x1080@60"
+    scale 1.25
+    position x=1920 y=0
+    variable-refresh-rate
+}
+output "HDMI-A-1" {
+    mode "1920x1080@60"
+    position x=0 y=0
+}
+layout {
+    focus-ring { width 0.00000001; active-color "#B0E0E6"; inactive-color "#505050"; }
+    struts { top 0; bottom 6; left 6; right 6; }
+}
+// startup
+prefer-no-csd
+spawn-at-startup "fcitx5"
+spawn-at-startup "waybar"
+spawn-at-startup "swaync"
+spawn-at-startup "ghostty"
+spawn-at-startup "pipewire"
+spawn-at-startup "swaybg" "-i" "/home/mame/Downloads/blue-sky.jpg" "-m" "stretch"
+hotkey-overlay {
+    skip-at-startup
+}
 // display
 window-rule {
     open-maximized true
     draw-border-with-background false
 }
-window-rule {
-    match app-id="discord"
-    open-on-workspace "three"
-}
 workspace "one"
 workspace "two"
 workspace "three"
-// layout
-layout {
-    gaps 16
-    center-focused-column "never"
-    preset-column-widths {
-        proportion 0.33333
-        proportion 0.5
-        proportion 0.66667
-    }
-    default-column-width { proportion 0.5; }
-    focus-ring { width 0.00000001; active-color "#B0E0E6"; inactive-color "#505050"; }
-    shadow { softness 30; spread 5; offset x=0 y=5; color "#0007"; }
-    struts { top 0; bottom 8; left 8; right 8; }
-}
-// startup
-prefer-no-csd
-screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
-spawn-at-startup "fcitx5"
-spawn-at-startup "waybar"
-spawn-at-startup "swaync"
-spawn-at-startup "discord"
-spawn-at-startup "ghostty"
-spawn-at-startup "swaybg" "-i" "/home/mame/dotfiles/niri/screen/huriren.jpg" "-m" "stretch"
-// input,output
-input {
-    keyboard { numlock }
-    touchpad { tap; natural-scroll; }
-}
-output "DP-2" {
-    mode "2560x1440@180.000"
-    variable-refresh-rate
-}
-// other
-cursor { hide-when-typing }
-gestures {
-    hot-corners { off } 
-}
-// binds
 binds {
     // app
-    Mod+T hotkey-overlay-title = "ghostty"     { spawn "ghostty"; }
-    Mod+G hotkey-overlay-title = "fuzzel"      { spawn "fuzzel"; }
-    Mod+B hotkey-overlay-title = "obsidian"    { spawn "obsidian"; }
-    Mod+U hotkey-overlay-title = "chromium"    { spawn "chromium"; }
-    Mod+I hotkey-overlay-title = "zen-browser" { spawn "zen-browser"; }
-    // web
-    Mod+C hotkey-overlay-title = "claude"  { spawn-sh "chromium --new-window --app='https://claude.ai/new'"; }
-    Mod+Y hotkey-overlay-title = "youtube" { spawn-sh "chromium --new-window --app='https://youtube.com'"; }
-    Mod+S hotkey-overlay-title = "spotify" { spawn-sh "chromium --new-window --app='https://open.spotify.com/'"; }
-    Mod+D hotkey-overlay-title = "discord" { spawn-sh "chromium --new-window --app='https://discord.com/channels/@me'"; }
-    Mod+A hotkey-overlay-title = "deepl"   { spawn-sh "chromium --new-window --app='https://www.deepl.com/ja/translator'"; }
-    // valume
-    Mod+Comma hotkey-overlay-title="Volume Up" { spawn "~/.config/niri/scripts/Volume.sh" "--inc"; }
-    Mod+M hotkey-overlay-title="Volume Down" { spawn "~/.config/niri/scripts/Volume.sh" "--dec"; }
+    Mod+Return { spawn "ghostty"; }
+    Mod+F      { spawn "fuzzel"; }
+    Mod+W      { spawn "chromium"; }
+    // web app
+    Mod+S     { spawn-sh "chromium --new-window --app='https://app.slack.com/client/'"; }
+    Mod+Space { spawn-sh "chromium --new-window --app='https://gemini.google.com/u/3/app'"; }
     // move
-    Mod+H     { focus-column-or-monitor-left; }
-    Mod+J     { focus-window-or-workspace-down; }
-    Mod+K     { focus-window-or-workspace-up; }
-    Mod+L     { focus-column-or-monitor-right; }
-    Mod+Ctrl+U         { move-column-to-workspace-down; }
-    Mod+Ctrl+I         { move-column-to-workspace-up; }
-    Mod+Shift+U         { move-workspace-down; }
-    Mod+Shift+I         { move-workspace-up; }
-    // must
-    Mod+Shift+Slash { show-hotkey-overlay; }
-    Mod+Shift+E { quit; }
-    Mod+Ctrl+Q  { quit; }
-    // Other
-    Mod+R { switch-preset-column-width; }
-    Mod+Shift+R { switch-preset-window-height; }
-    Mod+Ctrl+R { reset-window-height; }
-    Mod+F { maximize-column; }
+    Mod+H          { focus-column-left; }
+    Mod+L          { focus-column-right; }
+    Mod+J          { focus-window-or-workspace-down; }
+    Mod+K          { focus-window-or-workspace-up; }
+    Mod+Shift+H    { focus-monitor-left; }
+    Mod+Shift+L    { focus-monitor-right; }
+    // move column
+    Mod+Ctrl+H     { move-column-left; }
+    Mod+Ctrl+L     { move-column-right; }
+    Mod+Ctrl+J     { move-column-to-workspace-down; }
+    Mod+Ctrl+K     { move-column-to-workspace-up; }
+    Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
+    // sound
+    Mod+I { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+    Mod+U { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+    Mod+Shift+U { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    // blight
+    Mod+Comma { spawn "brightnessctl" "set" "10%+"; }
+    Mod+M     { spawn "brightnessctl" "set" "10%-"; }
+    // lock
+    Mod+R { spawn "swaylock"; }
+    // column size
+    Mod+A       { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
-    Mod+O repeat=false { toggle-overview; }
-    Mod+Q     { close-window; }
-    Mod+Ctrl+F { expand-column-to-available-width; }
-    Mod+Ctrl+C { center-visible-columns; }
-    Mod+V       { toggle-window-floating; }
-    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
-    Mod+W { toggle-column-tabbed-display; }
+    // screenshot
+    Mod+Shift+P { screenshot-window; }
     Mod+P  { screenshot; }
-    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+    // off
+    Mod+Q  { close-window; }
+    Mod+Shift+E { quit; }
+    Mod+Shift+Q { power-off-monitors; }
 }
-

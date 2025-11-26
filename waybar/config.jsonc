@@ -1,16 +1,16 @@
 {
-  "reload_style_on_change": true,
+  "reload_style_on_change": false,
   "layer": "top",
   "position": "top",
   "spacing": 0,
   "height": 26,
-  "modules-left": [ "niri/workspaces", "custom/cava"],
-  "modules-center": ["clock"],
+  "modules-left": ["niri/workspaces"],
+  "modules-center": ["custom/date", "clock"],
   "modules-right": [
-    "group/tray-expander",
-    "network",
+    "backlight",
     "pulseaudio",
-    "cpu"
+    "network",
+    "battery"
   ],
   "niri/workspaces": {
     "on-click": "activate",
@@ -20,53 +20,68 @@
       "1": "1",
       "2": "2", "3": "3",
       "4": "4",
-      "5": "5",
-      "6": "6",
-      "7": "7",
-      "8": "8",
-      "9": "9",
       "active": "󱓻"
     },
     "persistent-workspaces": {
       "1": [],
       "2": [],
       "3": [],
-      "4": [],
-      "5": []
+      "4": []
     }
   },
     "cpu": {
-    "interval": 5,
+    "interval": 10,
     "format": "󰍛",
     "on-click": "ghostty --title=TUI.float --command=btop"
   },
   "clock": {
-    "format": "{:%A %H:%M}",
-    "format-alt": "{:%d %B %Y}",
+    "format": "{:%H:%M}",
+    "format-alt": "{:%H:%M:%S}",
+    "tooltip": false
+  },
+  "custom/date": {
+    "format": "{}",
+    "exec": "date '+%m/%d (%a)'",
+    "interval": 60,
+    "tooltip": false
+  },
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": ["󰃞", "󰃟", "󰃠"],
     "tooltip": false
   },
   "network": {
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
     "format": "{icon}",
-    "format-wifi": "{icon}",
+    "format-wifi": "{icon} {signalStrength}%",
     "format-ethernet": "󰀂",
     "format-disconnected": "󰖪",
     "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-disconnected": "Disconnected",
-    "interval": 3,
+    "on-click": "ghostty --title=TUI.float --command=impala",
+    "interval": 10,
     "spacing": 1
   },
+  "battery": {
+    "interval": 60,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰂄 {capacity}%",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "tooltip-format": "{timeTo}\n{power}W"
+  },
   "pulseaudio": {
-    "format": "{icon}",
-    "on-click": "ghostty --title=TUI.float --command=wiremix",
-    "on-click-right": "pamixer -t",
-    "tooltip-format": "Playing at {volume}%",
-    "scroll-step": 5,
-    "format-muted": "󰝟",
+    "format": "{icon} {volume}%",
+    "format-muted": "󰖁 {volume}%",
     "format-icons": {
-      "default": ["", "", ""]
-    }
+      "default": ["󰕿", "󰖀", "󰕾"]
+    },
+    "tooltip-format": "{volume}%"
   },
   "group/tray-expander": {
     "orientation": "inherit",
@@ -83,14 +98,5 @@
   "tray": {
     "icon-size": 12,
     "spacing": 12
-  },
-  "custom/cava": {
-    "exec": "/home/mame/dotfiles/waybar/cava-waybar.sh",
-    "format": " {} ",
-    "restart-interval": 1,
-    "max-length": 30,
-    "tooltip": false,
-    "exec-if": "true",
-    "return-type": "text"
   }
 }
