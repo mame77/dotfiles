@@ -17,7 +17,7 @@ cursor {
 output "eDP-1" {
     mode "1920x1080@60"
     scale 1.25
-    position x=1920 y=0
+    position x=-1920 y=0
     variable-refresh-rate
 }
 output "HDMI-A-1" {
@@ -33,9 +33,9 @@ prefer-no-csd
 spawn-at-startup "fcitx5"
 spawn-at-startup "waybar"
 spawn-at-startup "swaync"
-spawn-at-startup "ghostty"
 spawn-at-startup "pipewire"
 spawn-at-startup "swaybg" "-i" "/home/mame/Downloads/blue-sky.jpg" "-m" "stretch"
+spawn-at-startup "sh" "-c" "/home/mame/.config/niri/scripts/battery-monitor.sh"
 hotkey-overlay {
     skip-at-startup
 }
@@ -54,7 +54,8 @@ binds {
     Mod+W      { spawn "chromium"; }
     // web app
     Mod+S     { spawn-sh "chromium --new-window --app='https://app.slack.com/client/'"; }
-    Mod+Space { spawn-sh "chromium --new-window --app='https://gemini.google.com/u/3/app'"; }
+    Mod+G     { spawn-sh "chromium --new-window --app='https://grok.com/'"; }
+    Mod+D     { spawn-sh "chromium --new-window --app='https://discord.com/app'"; }
     // move
     Mod+H          { focus-column-left; }
     Mod+L          { focus-column-right; }
@@ -70,17 +71,17 @@ binds {
     Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
     Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
     // sound
-    Mod+I { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
-    Mod+U { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
-    Mod+Shift+U { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    Mod+I { spawn "sh" "-c" "/home/mame/.config/niri/scripts/volume.sh 5%+"; }
+    Mod+U { spawn "sh" "-c" "/home/mame/.config/niri/scripts/volume.sh 5%-"; }
+    Mod+Shift+U { spawn "sh" "-c" "/home/mame/.config/niri/scripts/mute.sh"; }
     // blight
-    Mod+Comma { spawn "brightnessctl" "set" "10%+"; }
-    Mod+M     { spawn "brightnessctl" "set" "10%-"; }
+    Mod+Comma { spawn "sh" "-c" "/home/mame/.config/niri/scripts/brightness.sh 10%+"; }
+    Mod+M     { spawn "sh" "-c" "/home/mame/.config/niri/scripts/brightness.sh 10%-"; }
     // lock
     Mod+R { spawn "swaylock"; }
     // column size
-    Mod+A       { maximize-column; }
-    Mod+Shift+F { fullscreen-window; }
+    Mod+O { maximize-column; }
+    Mod+Y { fullscreen-window; }
     // screenshot
     Mod+Shift+P { screenshot-window; }
     Mod+P  { screenshot; }

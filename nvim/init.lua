@@ -53,6 +53,7 @@ require('nvim-treesitter.configs').setup({
     highlight = { enable = true },
 })
 vim.lsp.enable('gopls')
+vim.lsp.enable('ts_ls')
 vim.lsp.config('lua_ls', {
     settings = { Lua = { workspace = { library = vim.api.nvim_get_runtime_file("", true) } } }
 })
