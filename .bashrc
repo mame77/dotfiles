@@ -17,9 +17,9 @@ git_branch() {
 }
 PS1='-> \[\e[36m\]\w\[\e[0m\]$(git_branch) $ '
 # alias
+bind ': menu-complete'
+bind ': menu-complete-backward'
 shopt -s autocd
-alias nv="nvim"
-alias cl="clear"
 alias -- -="cd -"
 alias ..="cd .."
 alias ...="cd ../.."

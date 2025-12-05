@@ -11,22 +11,35 @@ input {
         scroll-factor 0.3
     }
 }
+gestures {
+    hot-corners {
+        off
+    }
+}
 cursor {
     hide-when-typing
 }
 output "eDP-1" {
     mode "1920x1080@60"
     scale 1.25
-    position x=-1920 y=0
-    variable-refresh-rate
+    position x=0 y=0
 }
 output "HDMI-A-1" {
     mode "1920x1080@60"
-    position x=0 y=0
+    position x=1536 y=0
 }
 layout {
     focus-ring { width 0.00000001; active-color "#B0E0E6"; inactive-color "#505050"; }
     struts { top 0; bottom 6; left 6; right 6; }
+}
+window-rule {
+    match app-id="TUI.float|net.lutris.Lutris|steam|LocalSend"
+    open-floating true
+    open-maximized false
+}
+window-rule {
+    match app-id="TUI.float"
+    opacity 0.95
 }
 // startup
 prefer-no-csd
@@ -39,6 +52,7 @@ spawn-at-startup "sh" "-c" "/home/mame/.config/niri/scripts/battery-monitor.sh"
 hotkey-overlay {
     skip-at-startup
 }
+screenshot-path "~/design/image/Screenshot from %m-%d %H-%M.png"
 // display
 window-rule {
     open-maximized true
@@ -52,7 +66,8 @@ binds {
     Mod+Return { spawn "ghostty"; }
     Mod+F      { spawn "fuzzel"; }
     Mod+W      { spawn "chromium"; }
-    // web app
+    // custom
+    Mod+E     { spawn-sh "ghostty --class='TUI.float' --command='impala'"; }
     Mod+S     { spawn-sh "chromium --new-window --app='https://app.slack.com/client/'"; }
     Mod+G     { spawn-sh "chromium --new-window --app='https://grok.com/'"; }
     Mod+D     { spawn-sh "chromium --new-window --app='https://discord.com/app'"; }

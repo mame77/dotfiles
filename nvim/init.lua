@@ -41,6 +41,7 @@ vim.pack.add({
     { src = 'https://github.com/rcarriga/nvim-notify' },                -- notify
     { src = 'https://github.com/folke/noice.nvim' },                    -- noice
     { src = 'https://github.com/folke/tokyonight.nvim' },               -- tokyonight
+    { src = 'https://github.com/catppuccin/nvim' },               -- tokyonight
 
 });
 require('mini.pick').setup()
@@ -57,18 +58,18 @@ vim.lsp.enable('ts_ls')
 vim.lsp.config('lua_ls', {
     settings = { Lua = { workspace = { library = vim.api.nvim_get_runtime_file("", true) } } }
 })
-require("notify").setup({ timeout = 1500, stages = "static", top_down = false })
+require("notify").setup({ timeout = 5000, stages = "static", top_down = false })
 require("noice").setup({ presets = { command_palette = true } })
-vim.cmd.colorscheme ('tokyonight-day')
-vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ffffff", bold = true })
+vim.cmd.colorscheme ('catppuccin-latte')
 
 -- keymap
 vim.g.mapleader = ' '
+vim.keymap.set('n', 'grd', vim.lsp.buf.definition);
 vim.keymap.set('n', 'q:', '<Nop>')
+vim.keymap.set('n', 'gre', vim.diagnostic.open_float);
 
 vim.keymap.set('n', '<leader>j', vim.cmd.Ex)
-vim.keymap.set('n', '<leader>k', vim.cmd.w)
-vim.keymap.set('n', '<leader>t', vim.cmd.term)
+vim.keymap.set('n', '<C-l>', 'a<Space><Esc>h')
 vim.keymap.set('n', '<C-j>', 'o<Esc>k')
 vim.keymap.set({'v', 'x'}, '<leader>y', '"+y')
 

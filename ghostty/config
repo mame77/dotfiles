@@ -1,5 +1,5 @@
 
-theme = "Tokyo Night"
+theme = catppuccin-latte
 # font
 font-family = "Isevka Nord Font"
 font-size = 17
