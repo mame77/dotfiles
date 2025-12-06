@@ -29,11 +29,6 @@
       "4": []
     }
   },
-    "cpu": {
-    "interval": 10,
-    "format": "󰍛",
-    "on-click": "ghostty --title=TUI.float --command=btop"
-  },
   "clock": {
     "format": "{:%H:%M}",
     "format-alt": "{:%H:%M:%S}",
@@ -79,6 +74,7 @@
     "format": "{icon} {volume}%",
     "format-muted": "󰖁 {volume}%",
     "format-icons": {
+      "headphone": "󰋋",
       "default": ["󰕿", "󰖀", "󰕾"]
     },
     "tooltip-format": "{volume}%"
@@ -90,10 +86,6 @@
       "children-class": "tray-group-item"
     },
     "modules": ["custom/expand-icon", "tray"]
-  },
-  "custom/expand-icon": {
-    "format": " ",
-    "tooltip": false
   },
   "tray": {
     "icon-size": 12,

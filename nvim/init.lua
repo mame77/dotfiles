@@ -41,7 +41,7 @@ vim.pack.add({
     { src = 'https://github.com/rcarriga/nvim-notify' },                -- notify
     { src = 'https://github.com/folke/noice.nvim' },                    -- noice
     { src = 'https://github.com/folke/tokyonight.nvim' },               -- tokyonight
-    { src = 'https://github.com/catppuccin/nvim' },               -- tokyonight
+    { src = 'https://github.com/catppuccin/nvim' },                     -- catppuccin
 
 });
 require('mini.pick').setup()
@@ -72,10 +72,9 @@ vim.keymap.set('n', '<leader>j', vim.cmd.Ex)
 vim.keymap.set('n', '<C-l>', 'a<Space><Esc>h')
 vim.keymap.set('n', '<C-j>', 'o<Esc>k')
 vim.keymap.set({'v', 'x'}, '<leader>y', '"+y')
+vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format);
 
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>');
 vim.keymap.set('n', '<leader>g', ':Pick grep_live<CR>');
-vim.keymap.set('n', '<leader>r', ':Pick buffers<CR>');
-vim.keymap.set('n', '[p', '<cmd>Gitsigns prev_hunk<CR>')
-vim.keymap.set('n', '[n', '<cmd>Gitsigns next_hunk<CR>')
+vim.keymap.set('n', '<leader>b', ':Pick buffers<CR>');
 
