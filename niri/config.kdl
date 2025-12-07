@@ -75,7 +75,6 @@ binds {
     // app
     Mod+F      { spawn "fuzzel"; }
     Mod+W      { spawn "chromium"; }
-    Mod+A      { spawn "qutebrowser"; }
     Mod+Return { spawn-sh "ghostty --class='app' --command='tmux'"; }
     Mod+G     { spawn-sh "chromium --new-window --app='https://grok.com/'"; }
     Mod+S     { spawn-sh "chromium --new-window --app='https://app.slack.com/client/'"; }
