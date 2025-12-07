@@ -17,4 +17,4 @@ window-padding-y = 6
 # other
 gtk-titlebar = true
 confirm-close-surface = false
-
+keybind = ctrl+enter=text:\r

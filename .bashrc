@@ -1,8 +1,8 @@
 # PATH
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH="$HOME/.bun/bin:$PATH"
-export PATH="$PATH:$(go env GOPATH)/bin"
+export PATH="$PATH:$(go env GOPATH)/bin:$PATH"
+export PATH="$HOME/.claude/bin:$PATH"
 # env
 export EDITOR=nvim
 export TERM="xterm-256color"
@@ -28,4 +28,5 @@ alias grep='grep --color=auto'
 alias xbps-install="sudo xbps-install -S"
 mkcd(){ mkdir -p -- "$1" && cd -- "$1"; }
 eval "$(zoxide init bash)"
+
 
