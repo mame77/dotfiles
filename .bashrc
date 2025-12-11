@@ -1,8 +1,9 @@
 # PATH
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.bun/bin:$PATH"
-export PATH="$PATH:$(go env GOPATH)/bin:$PATH"
+export PATH="$(go env GOPATH)/bin:$PATH"
 export PATH="$HOME/.claude/bin:$PATH"
+export PATH="$HOME/.opencode/bin:$PATH"
 # env
 export EDITOR=nvim
 export TERM="xterm-256color"
@@ -16,17 +17,16 @@ git_branch() {
     fi
 }
 PS1='-> \[\e[36m\]\w\[\e[0m\]$(git_branch) $ '
-# alias
+# base
+shopt -s autocd
 bind ': menu-complete'
 bind ': menu-complete-backward'
-shopt -s autocd
-alias -- -="cd -"
+mkcd(){ mkdir -p -- "$1" && cd -- "$1"; }
+eval "$(zoxide init bash)"
+# alias
 alias ..="cd .."
 alias ...="cd ../.."
 alias ls="ls --color=auto"
 alias grep='grep --color=auto'
 alias xbps-install="sudo xbps-install -S"
-mkcd(){ mkdir -p -- "$1" && cd -- "$1"; }
-eval "$(zoxide init bash)"
-
 

@@ -8,6 +8,7 @@
   sw = switch
   cm = commit
   ad = "!git add $1 && git status"
+  fr = "!git fetch --prune && git rebase origin/"
   ps = !git push origin $(git rev-parse --abbrev-ref HEAD)
   psf = !git push --force-with-lease origin $(git rev-parse --abbrev-ref HEAD)
 [credential]

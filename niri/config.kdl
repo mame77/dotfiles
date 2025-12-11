@@ -19,6 +19,15 @@ gestures {
 cursor {
     hide-when-typing
 }
+// output "eDP-1" {
+//     mode "1920x1080@60"
+//     scale 1.25
+//     position x=1920 y=0
+// }
+// output "HDMI-A-1" {
+//     mode "1920x1080@60"
+//     position x=0 y=0
+// }
 output "eDP-1" {
     mode "1920x1080@60"
     scale 1.25
@@ -28,9 +37,21 @@ output "HDMI-A-1" {
     mode "1920x1080@60"
     position x=1536 y=0
 }
+animations {
+     workspace-switch {
+         spring damping-ratio=1.0 stiffness=2000 epsilon=0.0001
+     }
+     window-movement {
+         spring damping-ratio=1.0 stiffness=2000 epsilon=0.0001
+     }
+     horizontal-view-movement {
+         spring damping-ratio=1.0 stiffness=2000 epsilon=0.0001
+     }
+ }
+
 layout {
     focus-ring { width 4; active-color "#B0E0E6"; inactive-color "#505050"; }
-    struts { top 0; bottom 6; left 6; right 6; }
+    // struts { top 0; bottom 0; left 0; right 0; }
 }
 window-rule {
     match app-id="TUI.float|net.lutris.Lutris|steam|LocalSend"
@@ -45,7 +66,7 @@ window-rule {
 prefer-no-csd
 spawn-at-startup "fcitx5"
 spawn-at-startup "waybar"
-spawn-at-startup "swaync"
+spawn-at-startup "mako"
 spawn-at-startup "pipewire"
 spawn-at-startup "swaybg" "-i" "/home/mame/Downloads/blue-sky.jpg" "-m" "stretch"
 spawn-at-startup "sh" "-c" "/home/mame/.config/niri/scripts/battery-monitor.sh"
@@ -60,6 +81,9 @@ environment {
     MOZ_ENABLE_WAYLAND "1"
     GTK_THEME "Adwaita"
     QT_STYLE_OVERRIDE "Adwaita"
+    INPUT_METHOD "fcitx"
+    QT_IM_MODULE "fcitx"
+    XMODIFIER    "@im=fcitx"
 }
 
 screenshot-path "~/design/image/Screenshot from %m-%d %H-%M.png"
@@ -73,9 +97,9 @@ workspace "two"
 workspace "three"
 binds {
     // app
-    Mod+F      { spawn "fuzzel"; }
-    Mod+W      { spawn "chromium"; }
-    Mod+Return { spawn-sh "ghostty --class='app' --command='tmux'"; }
+    Mod+F     { spawn "fuzzel"; }
+    Mod+W     { spawn "chromium"; }
+    Mod+E     { spawn-sh "ghostty --class='app' --command='tmux'"; }
     Mod+G     { spawn-sh "chromium --new-window --app='https://grok.com/'"; }
     Mod+S     { spawn-sh "chromium --new-window --app='https://app.slack.com/client/'"; }
     Mod+D     { spawn-sh "chromium --new-window --app='https://discord.com/app'"; }
@@ -83,12 +107,14 @@ binds {
     Mod+1     { spawn-sh "ghostty --class='TUI.float' --command='bluetuith'"; }
     Mod+2     { spawn-sh "ghostty --class='TUI.float' --command='wiremix'"; }
     Mod+3     { spawn-sh "ghostty --class='TUI.float' --command='impala'"; }
-    Mod+4     { spawn-sh "ghostty --class='app' --command='btop'"; }
+    Mod+4     { spawn-sh "ghostty --class='app'       --command='btop'"; }
     // move
-    Mod+H     { focus-column-or-monitor-left; }
-    Mod+J     { focus-window-or-workspace-down; }
-    Mod+K     { focus-window-or-workspace-up; }
-    Mod+L     { focus-column-or-monitor-right; }
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-workspace-down; }
+    Mod+K     { focus-workspace-up; }
+    Mod+L     { focus-column-right; }
+    Mod+Shift+H { focus-monitor-left; }
+    Mod+Shift+L { focus-monitor-right; }
     // move column
     Mod+Ctrl+H     { move-column-left; }
     Mod+Ctrl+L     { move-column-right; }

@@ -70,9 +70,10 @@ vim.keymap.set('n', 'gre', vim.diagnostic.open_float);
 
 vim.keymap.set('n', '<leader>j', vim.cmd.Ex)
 vim.keymap.set('n', '<C-l>', 'a<Space><Esc>h')
-vim.keymap.set('n', '<C-j>', 'o<Esc>k')
 vim.keymap.set({'v', 'x'}, '<leader>y', '"+y')
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format);
+vim.keymap.set('n', '<C-j>', '<C-f>')
+vim.keymap.set('n', '<C-k>', '<C-b>')
 
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>');
 vim.keymap.set('n', '<leader>g', ':Pick grep_live<CR>');
