@@ -6,9 +6,10 @@
 [alias]
   st = status
   sw = switch
-  cm = commit
+  cm = commit -m
   ad = "!git add $1 && git status"
-  fr = "!git fetch --prune && git rebase origin/"
+  fr = "!f() { git fetch --prune origin $1 && git rebase origin/$1; }; f"
+  rc  = rebase --continue
   ps = !git push origin $(git rev-parse --abbrev-ref HEAD)
   psf = !git push --force-with-lease origin $(git rev-parse --abbrev-ref HEAD)
 [credential]

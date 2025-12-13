@@ -4,6 +4,7 @@ export PATH="$HOME/.bun/bin:$PATH"
 export PATH="$(go env GOPATH)/bin:$PATH"
 export PATH="$HOME/.claude/bin:$PATH"
 export PATH="$HOME/.opencode/bin:$PATH"
+export PATH="$HOME/.local/share/pnpm:$PATH"
 # env
 export EDITOR=nvim
 export TERM="xterm-256color"
@@ -29,4 +30,5 @@ alias ...="cd ../.."
 alias ls="ls --color=auto"
 alias grep='grep --color=auto'
 alias xbps-install="sudo xbps-install -S"
+
 

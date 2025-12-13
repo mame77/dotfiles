@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 output_dir="$HOME/videos"
 
 if [[ ! -d "$output_dir" ]]; then
@@ -26,4 +25,3 @@ if pgrep -x wl-screenrec >/dev/null || pgrep -x wf-recorder >/dev/null; then
 else
   screenrecording
 fi
-

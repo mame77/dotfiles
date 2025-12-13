@@ -40,9 +40,7 @@ vim.pack.add({
     { src = 'https://github.com/MunifTanjim/nui.nvim' },                -- nui
     { src = 'https://github.com/rcarriga/nvim-notify' },                -- notify
     { src = 'https://github.com/folke/noice.nvim' },                    -- noice
-    { src = 'https://github.com/folke/tokyonight.nvim' },               -- tokyonight
     { src = 'https://github.com/catppuccin/nvim' },                     -- catppuccin
-
 });
 require('mini.pick').setup()
 require('mini.pairs').setup()
@@ -64,16 +62,18 @@ vim.cmd.colorscheme ('catppuccin-latte')
 
 -- keymap
 vim.g.mapleader = ' '
-vim.keymap.set('n', 'grd', vim.lsp.buf.definition);
 vim.keymap.set('n', 'q:', '<Nop>')
-vim.keymap.set('n', 'gre', vim.diagnostic.open_float);
 
-vim.keymap.set('n', '<leader>j', vim.cmd.Ex)
 vim.keymap.set('n', '<C-l>', 'a<Space><Esc>h')
-vim.keymap.set({'v', 'x'}, '<leader>y', '"+y')
-vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format);
+vim.keymap.set('n', '<C-h>', 'i<Space><Esc>l')
 vim.keymap.set('n', '<C-j>', '<C-f>')
 vim.keymap.set('n', '<C-k>', '<C-b>')
+vim.keymap.set('n', '<leader>j', vim.cmd.Ex)
+vim.keymap.set({'v', 'x'},  '<leader>y', '"+y')
+
+vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format);
+vim.keymap.set('n', 'grd', vim.lsp.buf.definition);
+vim.keymap.set('n', 'gre', vim.diagnostic.open_float);
 
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>');
 vim.keymap.set('n', '<leader>g', ':Pick grep_live<CR>');

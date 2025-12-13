@@ -19,15 +19,15 @@ gestures {
 cursor {
     hide-when-typing
 }
-// output "eDP-1" {
-//     mode "1920x1080@60"
-//     scale 1.25
-//     position x=1920 y=0
-// }
-// output "HDMI-A-1" {
-//     mode "1920x1080@60"
-//     position x=0 y=0
-// }
+output "eDP-1" {
+    mode "1920x1080@60"
+    scale 1.25
+    position x=1920 y=0
+}
+output "HDMI-A-1" {
+    mode "1920x1080@60"
+    position x=0 y=0
+}
 output "eDP-1" {
     mode "1920x1080@60"
     scale 1.25
@@ -39,19 +39,18 @@ output "HDMI-A-1" {
 }
 animations {
      workspace-switch {
-         spring damping-ratio=1.0 stiffness=2000 epsilon=0.0001
+         spring damping-ratio=1.0 stiffness=5000 epsilon=0.0001
      }
      window-movement {
-         spring damping-ratio=1.0 stiffness=2000 epsilon=0.0001
+         spring damping-ratio=1.0 stiffness=5000 epsilon=0.0001
      }
      horizontal-view-movement {
-         spring damping-ratio=1.0 stiffness=2000 epsilon=0.0001
+         spring damping-ratio=1.0 stiffness=5000 epsilon=0.0001
      }
  }
 
 layout {
     focus-ring { width 4; active-color "#B0E0E6"; inactive-color "#505050"; }
-    // struts { top 0; bottom 0; left 0; right 0; }
 }
 window-rule {
     match app-id="TUI.float|net.lutris.Lutris|steam|LocalSend"
@@ -132,7 +131,7 @@ binds {
     // lock
     Mod+R { spawn "swaylock"; }
     // record
-    Mod+Z { spawn "sh" "-c" "bash /home/mame/.config/niri/mod/screen-record.sh";}
+    Mod+Z { spawn "sh" "-c" "bash /home/mame/.config/niri/scripts/screen-record.sh";}
     Mod+Shift+P { screenshot-window; }
     Mod+P  { screenshot; }
     // column size
