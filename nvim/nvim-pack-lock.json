@@ -8,6 +8,10 @@
       "rev": "cdafc320f03f2572c40ab93a4eecb733d4016d07",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
+    "godoc.nvim": {
+      "rev": "a95062cfc812787f2d2891bb88117f09469599e9",
+      "src": "https://github.com/fredrikaverpil/godoc.nvim"
+    },
     "indent-blankline.nvim": {
       "rev": "005b56001b2cb30bfa61b7986bc50657816ba4ba",
       "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
@@ -47,6 +51,10 @@
     "nvim-ts-autotag": {
       "rev": "c4ca798ab95b316a768d51eaaaee48f64a4a46bc",
       "src": "https://github.com/windwp/nvim-ts-autotag"
+    },
+    "oil.nvim": {
+      "rev": "cbcb3f997f6f261c577b943ec94e4ef55108dd95",
+      "src": "https://github.com/stevearc/oil.nvim"
     },
     "tokyonight.nvim": {
       "rev": "5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd",
