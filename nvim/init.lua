@@ -40,8 +40,8 @@ vim.pack.add({
     { src = 'https://github.com/MunifTanjim/nui.nvim' },                -- nui
     { src = 'https://github.com/rcarriga/nvim-notify' },                -- notify
     { src = 'https://github.com/folke/noice.nvim' },                    -- noice
+    { src = 'https://github.com/stevearc/oil.nvim' }, --Oil
     { src = 'https://github.com/catppuccin/nvim' },                     -- catppuccin
-    { src = 'https://github.com/stevearc/oil.nvim' },
 });
 -- require
 require('mini.pick').setup()
@@ -66,9 +66,6 @@ require('nvim-treesitter.configs').setup({
 -- lsp
 vim.lsp.enable('gopls')
 vim.lsp.enable('ts_ls')
-vim.lsp.config('lua_ls', {
-    settings = { Lua = { workspace = { library = vim.api.nvim_get_runtime_file("", true) } } }
-})
 -- keymap
 vim.g.mapleader = ' '
 vim.keymap.set({'v', 'x'},  '<leader>y', '"+y')

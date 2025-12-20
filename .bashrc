@@ -2,7 +2,6 @@
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.bun/bin:$PATH"
 export PATH="$(go env GOPATH)/bin:$PATH"
-export PATH="$HOME/.claude/bin:$PATH"
 export PATH="$HOME/.opencode/bin:$PATH"
 export PATH="$HOME/.local/share/pnpm:$PATH"
 # env
@@ -23,12 +22,11 @@ shopt -s autocd
 bind ': menu-complete'
 bind ': menu-complete-backward'
 mkcd(){ mkdir -p -- "$1" && cd -- "$1"; }
-eval "$(zoxide init bash)"
 # alias
 alias ..="cd .."
 alias ...="cd ../.."
 alias ls="ls --color=auto"
 alias grep='grep --color=auto'
-alias xbps-install="sudo xbps-install -S"
-
+alias xbps-install="sudo xbps-install"
+alias xbps-remove="sudo xbps-remove"
 

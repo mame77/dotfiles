@@ -13,13 +13,10 @@
     "battery"
   ],
   "niri/workspaces": {
-    "on-click": "activate",
     "format": "{icon}",
     "format-icons": {
       "default": "",
-      "1": "1",
-      "2": "2", "3": "3",
-      "4": "4",
+      "1": "1","2": "2", "3": "3","4": "4",
       "active": "󱓻"
     },
     "persistent-workspaces": {
@@ -31,7 +28,6 @@
   },
   "clock": {
     "format": "{:%m/%d (%a) %H:%M}",
-    "format-alt": "{:%Y-%m-%d %H:%M:%S}",
     "tooltip": false
   },
   "backlight": {
@@ -48,7 +44,6 @@
     "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-disconnected": "Disconnected",
-    "on-click": "ghostty --title=TUI.float --command=impala",
     "interval": 10,
     "spacing": 1
   },

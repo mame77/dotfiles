@@ -8,7 +8,7 @@ input {
     touchpad {
         tap
         natural-scroll
-        scroll-factor 0.3
+        scroll-factor 0.8
     }
 }
 gestures {
@@ -50,7 +50,7 @@ animations {
  }
 
 layout {
-    focus-ring { width 4; active-color "#B0E0E6"; inactive-color "#505050"; }
+    focus-ring { width 3; active-color "#04a5e5"; inactive-color "#505050"; }
 }
 window-rule {
     match app-id="TUI.float|net.lutris.Lutris|steam|LocalSend"
@@ -67,7 +67,7 @@ spawn-at-startup "fcitx5"
 spawn-at-startup "waybar"
 spawn-at-startup "mako"
 spawn-at-startup "pipewire"
-spawn-at-startup "swaybg" "-i" "/home/mame/Downloads/blue-sky.jpg" "-m" "stretch"
+spawn-at-startup "swaybg" "-i" "/home/mame/Images/ml1.jpeg" "-m" "stretch"
 spawn-at-startup "sh" "-c" "/home/mame/.config/niri/scripts/battery-monitor.sh"
 hotkey-overlay {
     skip-at-startup
@@ -85,7 +85,7 @@ environment {
     XMODIFIER    "@im=fcitx"
 }
 
-screenshot-path "~/design/image/Screenshot from %m-%d %H-%M.png"
+screenshot-path "~/Images/Screenshot from %m-%d %H-%M.png"
 // display
 window-rule {
     open-maximized true
@@ -102,6 +102,7 @@ binds {
     Mod+G     { spawn-sh "chromium --new-window --app='https://grok.com/'"; }
     Mod+S     { spawn-sh "chromium --new-window --app='https://app.slack.com/client/'"; }
     Mod+D     { spawn-sh "chromium --new-window --app='https://discord.com/app'"; }
+    Mod+Y     { spawn-sh "chromium --new-window --app='https://www.youtube.com'"; }
     // system
     Mod+1     { spawn-sh "ghostty --class='TUI.float' --command='bluetuith'"; }
     Mod+2     { spawn-sh "ghostty --class='TUI.float' --command='wiremix'"; }
@@ -129,7 +130,7 @@ binds {
     Mod+Comma { spawn "sh" "-c" "/home/mame/.config/niri/scripts/brightness.sh 10%+"; }
     Mod+M     { spawn "sh" "-c" "/home/mame/.config/niri/scripts/brightness.sh 10%-"; }
     // lock
-    Mod+R { spawn "swaylock"; }
+    Mod+R { spawn "hyprlock"; }
     // record
     Mod+Z { spawn "sh" "-c" "bash /home/mame/.config/niri/scripts/screen-record.sh";}
     Mod+Shift+P { screenshot-window; }
