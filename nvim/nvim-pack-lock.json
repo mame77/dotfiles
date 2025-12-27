@@ -16,9 +16,13 @@
       "rev": "005b56001b2cb30bfa61b7986bc50657816ba4ba",
       "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
     },
+    "kanagawa.nvim": {
+      "rev": "aef7f5cec0a40dbe7f3304214850c472e2264b10",
+      "src": "git@github.com:rebelot/kanagawa.nvim"
+    },
     "mini.pairs": {
       "rev": "d5a29b6254dad07757832db505ea5aeab9aad43a",
-      "src": "https://github.com/echasnovski/mini.pairs"
+      "src": "git@github.com:echasnovski/mini.pairs"
     },
     "mini.pick": {
       "rev": "6b7974543b17cf2e294993fc3d8545a342258232",
@@ -36,6 +40,10 @@
       "rev": "ce8d176faa4643e026e597ae3c31db59b63cef09",
       "src": "https://github.com/catppuccin/nvim"
     },
+    "nvim-libmodal": {
+      "rev": "fbcf15f364415698b8a0c6f52d3836625e28dab6",
+      "src": "https://github.com/Iron-E/nvim-libmodal"
+    },
     "nvim-lspconfig": {
       "rev": "c4f67bf85b01a57e3c130352c0a0e453ab8cd5b9",
       "src": "https://github.com/neovim/nvim-lspconfig"
@@ -45,16 +53,29 @@
       "src": "https://github.com/rcarriga/nvim-notify"
     },
     "nvim-treesitter": {
-      "rev": "4fc09bee78e91bf4ba471cdab4bf9dfa37fde51c",
-      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+      "rev": "e08ad49dbd62d68789930ca87068da89e71cb71a",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter",
+      "version": "'main'"
     },
     "nvim-ts-autotag": {
       "rev": "c4ca798ab95b316a768d51eaaaee48f64a4a46bc",
       "src": "git@github.com:windwp/nvim-ts-autotag"
     },
+    "nvim-typora": {
+      "rev": "4812ad0379454a5507db8a748ca94e86f34f8f8a",
+      "src": "https://github.com/Iron-E/nvim-typora"
+    },
+    "obsidian.nvim": {
+      "rev": "14e0427bef6c55da0d63f9a313fd9941be3a2479",
+      "src": "https://github.com/epwalsh/obsidian.nvim"
+    },
     "oil.nvim": {
       "rev": "cbcb3f997f6f261c577b943ec94e4ef55108dd95",
       "src": "https://github.com/stevearc/oil.nvim"
+    },
+    "plenary.nvim": {
+      "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "tokyonight.nvim": {
       "rev": "5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd",

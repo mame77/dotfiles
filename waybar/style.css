@@ -1,6 +1,6 @@
 /* @import "../../themes/nord/waybar.css"; */
 
-@define-color background rgba(255, 255, 255, 0.65);
+@define-color background rgba(255, 255, 255, 0.9);
 @define-color foreground #000000;
 
 * {
@@ -62,30 +62,31 @@ window#waybar {
 }
 
 #pulseaudio:not(.muted) {
-  background-color: #ffff00;
-  color: #000000;
-}
-
-#battery.critical {
-  background-color: #ffff00;
-  color: #000000;
+    background-color: @background;
+  color: @foreground;
 }
 
 #battery.charging,
 #battery.plugged {
-  background-color: #00ff00;
-  color: #000000;
+    background-color: #00FF00;
+  color: @foreground;
+}
+
+
+#battery.critical {
+  background-color: #FF0000;
+  color: @foreground;
+}
+
+#battery.warning{
+    background-color: #FFFF00;
+    color: @foreground;
 }
 
 #custom-expand-icon {
-  background-color: @background;
   border-radius: 8px;
   padding: 6px 10px;
   margin: 3px;
-}
-
-tooltip {
-  padding: 2px;
 }
 
 #custom-update {
@@ -101,11 +102,4 @@ tooltip {
 
 .hidden {
   opacity: 0;
-}
-
-#custom-cava {
-  background-color: @background;
-  border-radius: 8px;
-  padding: 6px 10px;
-  margin: 3px;
 }

@@ -5,14 +5,14 @@ font-size = 17
 font-feature = -dlig
 # cursor
 cursor-style = block
-cursor-style-blink = true
-cursor-color = #04a5e5
+cursor-style-blink = false
+cursor-color = #555555
 shell-integration-features = no-cursor
 custom-shader-animation = always
-custom-shader = ~/.config/ghostty/shaders/cursor_warp.glsl
+custom-shader = ~/.config/ghostty/shaders/cursor_tail.glsl
 # display
 window-theme = ghostty
-background-opacity = 0.92
+background-opacity = 1
 window-decoration = none
 window-padding-x = 6
 window-padding-y = 6

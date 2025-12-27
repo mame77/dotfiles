@@ -1,82 +1,105 @@
--- display
+-- default
+require("pack")
 vim.opt.mouse = ""
 vim.opt.guicursor = ""
+vim.opt.termguicolors = true
+
+-- ui
 vim.opt.number = true
 vim.opt.signcolumn = "yes"
-vim.opt.cursorline = true
-vim.opt.cursorlineopt = "number"
-vim.opt.wrap = false
 vim.opt.scrolloff = 6
-vim.opt.termguicolors = true
+vim.opt.wrap = false
+vim.opt.pumborder = "rounded"
+vim.opt.winborder = "rounded"
+
 -- indent
-vim.opt.swapfile = false 
 vim.opt.tabstop = 4
+vim.opt.swapfile = false
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.hlsearch = false
-vim.diagnostic.config({ virtual_text = true })
--- completion
+vim.opt.smartcase = true
+vim.diagnostic.config({virtual_text = {current_line = true,},})
+
+-- auto completion
+vim.opt.complete = 'o'
 vim.opt.pumheight = 10
-vim.opt.completeopt = { "fuzzy", "menuone", "noinsert" }
+vim.opt.completeopt = { "fuzzy", "menu", "noinsert", "noselect" }
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
         if client:supports_method('textDocument/completion') then
-            local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
-            client.server_capabilities.completionProvider.triggerCharacters = chars
             vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true, })
         end
     end,
 })
--- plugin
+vim.keymap.set('i', '<CR>', function()
+  return vim.fn.pumvisible() == 1 and '<C-y>' or '<CR>'
+end, { expr = true })
+
+-- vim pack
 vim.pack.add({
-    { src = 'https://github.com/nvim-mini/mini.pick' },                 -- minipick
-    { src = 'https://github.com/echasnovski/mini.pairs' },              -- minipairs
-    { src = 'https://github.com/lewis6991/gitsigns.nvim' },             -- gitsigns
-    { src = 'https://github.com/lukas-reineke/indent-blankline.nvim' }, -- ibl
-    { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },     -- treesitter
-    { src = 'https://github.com/neovim/nvim-lspconfig' },               -- lspconfig
-    { src = 'https://github.com/MunifTanjim/nui.nvim' },                -- nui
-    { src = 'https://github.com/rcarriga/nvim-notify' },                -- notify
-    { src = 'https://github.com/folke/noice.nvim' },                    -- noice
-    { src = 'https://github.com/stevearc/oil.nvim' }, --Oil
-    { src = 'https://github.com/catppuccin/nvim' },                     -- catppuccin
+    { src = 'https://github.com/nvim-lua/plenary.nvim' },
+    { src = 'https://github.com/neovim/nvim-lspconfig' },
+    { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
+    { src = 'https://github.com/stevearc/oil.nvim' },
+    { src = 'https://github.com/lewis6991/gitsigns.nvim' },
+    { src = 'https://github.com/lukas-reineke/indent-blankline.nvim' },
+    { src = 'https://github.com/nvim-mini/mini.pick' },
+    { src = 'https://github.com/MunifTanjim/nui.nvim' },
+    { src = 'https://github.com/folke/noice.nvim' },
+    { src = 'https://github.com/Iron-E/nvim-typora' },
+    { src = 'https://github.com/Iron-E/nvim-libmodal' },
+    { src = 'https://github.com/catppuccin/nvim' },
 });
+
+do
+    local ok, libmodal = pcall(require, 'libmodal')
+    if ok and libmodal.globals == nil then
+        local ok_globals, globals = pcall(require, 'libmodal.globals')
+        if ok_globals then
+            libmodal.globals = globals
+        end
+    end
+end
+
 -- require
-require('mini.pick').setup()
-require('mini.pairs').setup()
-require('oil').setup({
-    view_options = {
-        show_hidden = true,
-    },
-    win_options = {
-        winbar = "%#@attribute.builtin#%{substitute(v:lua.require('oil').get_current_dir(), '^' . $HOME, '~', '')}",
-    },
-})
 require('gitsigns').setup()
-require("notify").setup({ timeout = 5000, stages = "static", top_down = false })
+require('mini.pick').setup()
 require("noice").setup({ presets = { command_palette = true } })
-require("ibl").setup({ indent = { char = "│" }, scope = { enabled = false } })
-require('nvim-treesitter.configs').setup({
-    ensure_installed = { 'lua', 'go', 'typescript', 'javascript', 'html', 'css' },
-    auto_install = true,
-    highlight = { enable = true },
+require("ibl").setup({indent = { char = '│' }, scope = { enabled = false },})
+require('oil').setup({view_options = {show_hidden = true,},win_options = {winbar = "%#@attribute.builtin#%{substitute(v:lua.require('oil').get_current_dir(), '^' . $HOME, '~', '')}",},})
+
+-- treesitter
+require('nvim-treesitter').install({'lua', 'go', 'vue', 'html', 'scss', 'css', 'typescript', 'javascript',
+    'typescriptreact', 'javascriptreact'});
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'lua', 'go', 'vue', 'html', 'scss', 'css', 'typescript', 'javascript', 'tsx', 'jsx' },
+    callback = function() vim.treesitter.start() end,
 })
--- lsp
-vim.lsp.enable('gopls')
-vim.lsp.enable('ts_ls')
--- keymap
+
+-- keymaps
 vim.g.mapleader = ' '
-vim.keymap.set({'v', 'x'},  '<leader>y', '"+y')
-vim.keymap.set('n', '<leader>j', vim.cmd.Oil)
-vim.keymap.set('n', '<leader>r', vim.cmd.LspRestart);
+vim.keymap.set('n', 'grd', vim.lsp.buf.definition);
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float);
+vim.keymap.set({ 'n', 'v', 'x' }, '<leader>y', '"+y<CR>')
+vim.keymap.set("n", "<leader>m", vim.cmd.Typora)
+vim.keymap.set('n', '<leader>o', vim.cmd.Oil);
 vim.keymap.set('n', '<leader>l', vim.lsp.buf.format);
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>');
-vim.keymap.set('n', '<leader>g', ':Pick grep_live<CR>');
+vim.keymap.set('n', '<leader>g', ':Pick grep<CR>');
 vim.keymap.set('n', '<leader>b', ':Pick buffers<CR>');
-vim.keymap.set('n', 'grd', vim.lsp.buf.definition);
-vim.keymap.set('n', 'gre', vim.diagnostic.open_float);
+vim.keymap.set('n', '<leader>d', function() vim.diagnostic.setqflist({vim.diagnostic.severity.ERROR}) end);
+
+
+--lsp
+vim.lsp.enable('gopls')
+vim.lsp.enable('ts_ls')
+vim.lsp.enable('lua_ls')
+vim.lsp.enable('bashls')
+vim.lsp.enable('yamlls')
+vim.lsp.enable('emmet_ls')
 
 -- colorscheme
-vim.cmd.colorscheme ('catppuccin-latte')
+vim.cmd('colorscheme catppuccin-latte');

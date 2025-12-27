@@ -1,4 +1,17 @@
 // setting
+hotkey-overlay {
+    skip-at-startup
+}
+workspace "one"
+workspace "two"
+gestures {
+    hot-corners {
+        off
+    }
+}
+cursor {
+    hide-when-typing
+}
 input {
     keyboard {
         numlock
@@ -11,23 +24,6 @@ input {
         scroll-factor 0.8
     }
 }
-gestures {
-    hot-corners {
-        off
-    }
-}
-cursor {
-    hide-when-typing
-}
-output "eDP-1" {
-    mode "1920x1080@60"
-    scale 1.25
-    position x=1920 y=0
-}
-output "HDMI-A-1" {
-    mode "1920x1080@60"
-    position x=0 y=0
-}
 output "eDP-1" {
     mode "1920x1080@60"
     scale 1.25
@@ -36,6 +32,22 @@ output "eDP-1" {
 output "HDMI-A-1" {
     mode "1920x1080@60"
     position x=1536 y=0
+}
+layout {
+    focus-ring { width 3; active-color "#1e66f5"; }
+}
+window-rule {
+    match app-id="TUI.float|net.lutris.Lutris|steam|LocalSend"
+    open-floating true
+    open-maximized false
+}
+window-rule {
+    match app-id="TUI.float"
+    opacity 0.95
+}
+window-rule {
+    open-maximized true
+    draw-border-with-background false
 }
 animations {
      workspace-switch {
@@ -48,20 +60,6 @@ animations {
          spring damping-ratio=1.0 stiffness=5000 epsilon=0.0001
      }
  }
-
-layout {
-    focus-ring { width 3; active-color "#04a5e5"; inactive-color "#505050"; }
-}
-window-rule {
-    match app-id="TUI.float|net.lutris.Lutris|steam|LocalSend"
-    open-floating true
-    open-maximized false
-}
-window-rule {
-    match app-id="TUI.float"
-    opacity 0.95
-}
-// startup
 prefer-no-csd
 spawn-at-startup "fcitx5"
 spawn-at-startup "waybar"
@@ -69,9 +67,6 @@ spawn-at-startup "mako"
 spawn-at-startup "pipewire"
 spawn-at-startup "swaybg" "-i" "/home/mame/Images/ml1.jpeg" "-m" "stretch"
 spawn-at-startup "sh" "-c" "/home/mame/.config/niri/scripts/battery-monitor.sh"
-hotkey-overlay {
-    skip-at-startup
-}
 environment {
     DISPLAY ":0"
     XDG_SESSION_TYPE "wayland"
@@ -84,30 +79,25 @@ environment {
     QT_IM_MODULE "fcitx"
     XMODIFIER    "@im=fcitx"
 }
-
 screenshot-path "~/Images/Screenshot from %m-%d %H-%M.png"
-// display
-window-rule {
-    open-maximized true
-    draw-border-with-background false
-}
-workspace "one"
-workspace "two"
-workspace "three"
+spawn-at-startup "hyprlock"
 binds {
     // app
+    Mod+C     { spawn "chromium"; }
     Mod+F     { spawn "fuzzel"; }
-    Mod+W     { spawn "chromium"; }
-    Mod+E     { spawn-sh "ghostty --class='app' --command='tmux'"; }
+    Mod+T     { spawn-sh "ghostty --class='app' --command='tmux'"; }
     Mod+G     { spawn-sh "chromium --new-window --app='https://grok.com/'"; }
     Mod+S     { spawn-sh "chromium --new-window --app='https://app.slack.com/client/'"; }
     Mod+D     { spawn-sh "chromium --new-window --app='https://discord.com/app'"; }
     Mod+Y     { spawn-sh "chromium --new-window --app='https://www.youtube.com'"; }
+
     // system
     Mod+1     { spawn-sh "ghostty --class='TUI.float' --command='bluetuith'"; }
     Mod+2     { spawn-sh "ghostty --class='TUI.float' --command='wiremix'"; }
     Mod+3     { spawn-sh "ghostty --class='TUI.float' --command='impala'"; }
     Mod+4     { spawn-sh "ghostty --class='app'       --command='btop'"; }
+    Mod+5     { spawn "sh" "-c" "wl-mirror eDP-1"; }
+
     // move
     Mod+H     { focus-column-left; }
     Mod+J     { focus-workspace-down; }
@@ -115,6 +105,7 @@ binds {
     Mod+L     { focus-column-right; }
     Mod+Shift+H { focus-monitor-left; }
     Mod+Shift+L { focus-monitor-right; }
+
     // move column
     Mod+Ctrl+H     { move-column-left; }
     Mod+Ctrl+L     { move-column-right; }
@@ -122,24 +113,25 @@ binds {
     Mod+Ctrl+K     { move-column-to-workspace-up; }
     Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
     Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
-    // sound
+
+    // column size
+    Mod+O { maximize-column; }
+    Mod+Shift+O { fullscreen-window; }
+
+    // system
     Mod+I { spawn "sh" "-c" "/home/mame/.config/niri/scripts/volume.sh 5%+"; }
     Mod+U { spawn "sh" "-c" "/home/mame/.config/niri/scripts/volume.sh 5%-"; }
-    Mod+Shift+U { spawn "sh" "-c" "/home/mame/.config/niri/scripts/mute.sh"; }
-    // blight
+    Mod+Shift+U { spawn "sh" "-c" "/home/mame/.config/niri/scripts/volume.sh muted"; }
     Mod+Comma { spawn "sh" "-c" "/home/mame/.config/niri/scripts/brightness.sh 10%+"; }
     Mod+M     { spawn "sh" "-c" "/home/mame/.config/niri/scripts/brightness.sh 10%-"; }
-    // lock
-    Mod+R { spawn "hyprlock"; }
+
     // record
     Mod+Z { spawn "sh" "-c" "bash /home/mame/.config/niri/scripts/screen-record.sh";}
     Mod+Shift+P { screenshot-window; }
     Mod+P  { screenshot; }
-    // column size
-    Mod+O { maximize-column; }
-    Mod+Shift+O { fullscreen-window; }
+
     // off
-    Mod+Q  { close-window; }
-    Mod+Shift+E { quit; }
-    Mod+Shift+Q { power-off-monitors; }
+    Mod+R         { spawn "wlogout"; }
+    Mod+Q         { close-window; }
+    Mod+Shift+E   { quit; }
 }
