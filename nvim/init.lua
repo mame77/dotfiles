@@ -20,60 +20,57 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.hlsearch = false
 vim.opt.smartcase = true
-vim.diagnostic.config({virtual_text = {current_line = true,},})
+vim.opt.splitright = true
+vim.diagnostic.config({ virtual_text = { current_line = true, }, })
 
 -- auto completion
 vim.opt.complete = 'o'
 vim.opt.pumheight = 10
-vim.opt.completeopt = { "fuzzy", "menu", "noinsert", "noselect" }
+vim.opt.completeopt = { "menuone", "noinsert" }
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
         if client:supports_method('textDocument/completion') then
-            vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true, })
+            client.server_capabilities.completionProvider.triggerCharacters = nil
+            vim.lsp.completion.enable(true, client.id, args.buf, {
+                autotrigger = true,
+                convert = function(item)
+                    return {
+                        abbr = item.label:gsub('%b()', ''),
+                        menu = '',
+                    }
+                end,
+            })
         end
     end,
 })
 vim.keymap.set('i', '<CR>', function()
-  return vim.fn.pumvisible() == 1 and '<C-y>' or '<CR>'
+    return vim.fn.pumvisible() == 1 and '<C-y>' or '<CR>'
 end, { expr = true })
 
 -- vim pack
 vim.pack.add({
-    { src = 'https://github.com/nvim-lua/plenary.nvim' },
     { src = 'https://github.com/neovim/nvim-lspconfig' },
-    { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
+    { src = 'https://github.com/nvim-treesitter/nvim-treesitter',    version = 'main' },
     { src = 'https://github.com/stevearc/oil.nvim' },
     { src = 'https://github.com/lewis6991/gitsigns.nvim' },
     { src = 'https://github.com/lukas-reineke/indent-blankline.nvim' },
     { src = 'https://github.com/nvim-mini/mini.pick' },
     { src = 'https://github.com/MunifTanjim/nui.nvim' },
     { src = 'https://github.com/folke/noice.nvim' },
-    { src = 'https://github.com/Iron-E/nvim-typora' },
-    { src = 'https://github.com/Iron-E/nvim-libmodal' },
     { src = 'https://github.com/catppuccin/nvim' },
 });
-
-do
-    local ok, libmodal = pcall(require, 'libmodal')
-    if ok and libmodal.globals == nil then
-        local ok_globals, globals = pcall(require, 'libmodal.globals')
-        if ok_globals then
-            libmodal.globals = globals
-        end
-    end
-end
 
 -- require
 require('gitsigns').setup()
 require('mini.pick').setup()
 require("noice").setup({ presets = { command_palette = true } })
-require("ibl").setup({indent = { char = '│' }, scope = { enabled = false },})
-require('oil').setup({view_options = {show_hidden = true,},win_options = {winbar = "%#@attribute.builtin#%{substitute(v:lua.require('oil').get_current_dir(), '^' . $HOME, '~', '')}",},})
+require("ibl").setup({ indent = { char = '│' }, scope = { enabled = false }, })
+require('oil').setup({ view_options = { show_hidden = true, }, win_options = { winbar = "%#@attribute.builtin#%{substitute(v:lua.require('oil').get_current_dir(), '^' . $HOME, '~', '')}", }, })
 
 -- treesitter
-require('nvim-treesitter').install({'lua', 'go', 'vue', 'html', 'scss', 'css', 'typescript', 'javascript',
-    'typescriptreact', 'javascriptreact'});
+require('nvim-treesitter').install({ 'lua', 'go', 'vue', 'html', 'scss', 'css', 'typescript', 'javascript',
+    'typescriptreact', 'javascriptreact' });
 vim.api.nvim_create_autocmd('FileType', {
     pattern = { 'lua', 'go', 'vue', 'html', 'scss', 'css', 'typescript', 'javascript', 'tsx', 'jsx' },
     callback = function() vim.treesitter.start() end,
@@ -84,14 +81,13 @@ vim.g.mapleader = ' '
 vim.keymap.set('n', 'grd', vim.lsp.buf.definition);
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float);
 vim.keymap.set({ 'n', 'v', 'x' }, '<leader>y', '"+y<CR>')
-vim.keymap.set("n", "<leader>m", vim.cmd.Typora)
 vim.keymap.set('n', '<leader>o', vim.cmd.Oil);
 vim.keymap.set('n', '<leader>l', vim.lsp.buf.format);
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>');
 vim.keymap.set('n', '<leader>g', ':Pick grep<CR>');
 vim.keymap.set('n', '<leader>b', ':Pick buffers<CR>');
-vim.keymap.set('n', '<leader>d', function() vim.diagnostic.setqflist({vim.diagnostic.severity.ERROR}) end);
-
+vim.keymap.set('n', '<leader>u', ':vsp<CR>:Pick files<CR>')
+vim.keymap.set('n', '<leader>d', function() vim.diagnostic.setqflist({ vim.diagnostic.severity.ERROR }) end);
 
 --lsp
 vim.lsp.enable('gopls')

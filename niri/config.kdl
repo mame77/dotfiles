@@ -60,6 +60,7 @@ animations {
          spring damping-ratio=1.0 stiffness=5000 epsilon=0.0001
      }
  }
+screenshot-path "~/Images/Screenshot from %m-%d %H-%M.png"
 prefer-no-csd
 spawn-at-startup "fcitx5"
 spawn-at-startup "waybar"
@@ -67,6 +68,7 @@ spawn-at-startup "mako"
 spawn-at-startup "pipewire"
 spawn-at-startup "swaybg" "-i" "/home/mame/Images/ml1.jpeg" "-m" "stretch"
 spawn-at-startup "sh" "-c" "/home/mame/.config/niri/scripts/battery-monitor.sh"
+spawn-at-startup "hyprlock"
 environment {
     DISPLAY ":0"
     XDG_SESSION_TYPE "wayland"
@@ -79,25 +81,26 @@ environment {
     QT_IM_MODULE "fcitx"
     XMODIFIER    "@im=fcitx"
 }
-screenshot-path "~/Images/Screenshot from %m-%d %H-%M.png"
-spawn-at-startup "hyprlock"
+
 binds {
     // app
     Mod+C     { spawn "chromium"; }
     Mod+F     { spawn "fuzzel"; }
+    Mod+W     { spawn "zen"; }
+    Mod+R     { spawn "wlogout"; }
     Mod+T     { spawn-sh "ghostty --class='app' --command='tmux'"; }
+    // web
     Mod+G     { spawn-sh "chromium --new-window --app='https://grok.com/'"; }
     Mod+S     { spawn-sh "chromium --new-window --app='https://app.slack.com/client/'"; }
     Mod+D     { spawn-sh "chromium --new-window --app='https://discord.com/app'"; }
     Mod+Y     { spawn-sh "chromium --new-window --app='https://www.youtube.com'"; }
-
     // system
+    Mod+Q     { close-window; }
     Mod+1     { spawn-sh "ghostty --class='TUI.float' --command='bluetuith'"; }
     Mod+2     { spawn-sh "ghostty --class='TUI.float' --command='wiremix'"; }
     Mod+3     { spawn-sh "ghostty --class='TUI.float' --command='impala'"; }
     Mod+4     { spawn-sh "ghostty --class='app'       --command='btop'"; }
     Mod+5     { spawn "sh" "-c" "wl-mirror eDP-1"; }
-
     // move
     Mod+H     { focus-column-left; }
     Mod+J     { focus-workspace-down; }
@@ -105,7 +108,6 @@ binds {
     Mod+L     { focus-column-right; }
     Mod+Shift+H { focus-monitor-left; }
     Mod+Shift+L { focus-monitor-right; }
-
     // move column
     Mod+Ctrl+H     { move-column-left; }
     Mod+Ctrl+L     { move-column-right; }
@@ -113,25 +115,19 @@ binds {
     Mod+Ctrl+K     { move-column-to-workspace-up; }
     Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
     Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
-
     // column size
     Mod+O { maximize-column; }
     Mod+Shift+O { fullscreen-window; }
-
-    // system
+    // sound
     Mod+I { spawn "sh" "-c" "/home/mame/.config/niri/scripts/volume.sh 5%+"; }
     Mod+U { spawn "sh" "-c" "/home/mame/.config/niri/scripts/volume.sh 5%-"; }
     Mod+Shift+U { spawn "sh" "-c" "/home/mame/.config/niri/scripts/volume.sh muted"; }
-    Mod+Comma { spawn "sh" "-c" "/home/mame/.config/niri/scripts/brightness.sh 10%+"; }
-    Mod+M     { spawn "sh" "-c" "/home/mame/.config/niri/scripts/brightness.sh 10%-"; }
-
+    // bright
+    F2 { spawn "sh" "-c" "/home/mame/.config/niri/scripts/brightness.sh 10%+"; }
+    F1 { spawn "sh" "-c" "/home/mame/.config/niri/scripts/brightness.sh 10%-"; }
     // record
     Mod+Z { spawn "sh" "-c" "bash /home/mame/.config/niri/scripts/screen-record.sh";}
-    Mod+Shift+P { screenshot-window; }
-    Mod+P  { screenshot; }
-
+    F3  { screenshot; }
     // off
-    Mod+R         { spawn "wlogout"; }
-    Mod+Q         { close-window; }
     Mod+Shift+E   { quit; }
 }

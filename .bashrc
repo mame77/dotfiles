@@ -31,4 +31,5 @@ alias ls="ls --color=auto"
 alias grep='grep --color=auto'
 alias xbps-install="sudo xbps-install"
 alias xbps-remove="sudo xbps-remove"
-
+alias sp="sudo ss -ltnup | grep LISTEN"
+alias sd="sudo sv restart docker"
