@@ -58,10 +58,15 @@ vim.pack.add({
     { src = 'https://github.com/nvim-mini/mini.pick' },
     { src = 'https://github.com/MunifTanjim/nui.nvim' },
     { src = 'https://github.com/folke/noice.nvim' },
+    { src = 'https://github.com/petertriho/nvim-scrollbar' },
     { src = 'https://github.com/catppuccin/nvim' },
 });
 
 -- require
+require("scrollbar").setup({
+    handlers = { cursor = false },
+    handle = { color = "#CCCCCC" },
+})
 require('gitsigns').setup()
 require('mini.pick').setup()
 require("noice").setup({ presets = { command_palette = true } })

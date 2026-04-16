@@ -21,12 +21,12 @@ git_branch() {
 PS1='-> \[\e[36m\]\w\[\e[0m\]$(git_branch) $ '
 # base
 shopt -s autocd
-bind ': menu-complete'
-bind ': menu-complete-backward'
+bind '"\C-n" menu-complete'
+bind '"\C-p" menu-complete-backward'
+bind '"\C-k" previous-history'
+bind '"\C-j" next-history'
 mkcd(){ mkdir -p -- "$1" && cd -- "$1"; }
 # alias
-alias ..="cd .."
-alias ...="cd ../.."
 alias ls="ls --color=auto"
 alias grep='grep --color=auto'
 alias xbps-install="sudo xbps-install"

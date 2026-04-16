@@ -7,6 +7,7 @@
   st = status
   sw = switch
   cm = commit -m
+  cma = commit --amend
   ad = "!git add $1 && git status"
   fr = "!f() { git fetch --prune origin $1 && git rebase origin/$1; }; f"
   rc  = rebase --continue
