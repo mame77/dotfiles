@@ -1,0 +1,352 @@
+#!/usr/bin/env bash
+
+set -uo pipefail
+
+CONFIG_FILE="${GIT_AUTO_SYNC_CONFIG:-$HOME/.config/git-auto-sync/repos.txt}"
+INTERVAL_SECONDS="${GIT_AUTO_SYNC_INTERVAL:-300}"
+DISCOVERY_DEPTH="${GIT_AUTO_SYNC_DISCOVERY_DEPTH:-3}"
+LOG_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/git-auto-sync"
+LOG_FILE="$LOG_DIR/sync.log"
+LOCK_DIR="${XDG_RUNTIME_DIR:-/tmp}/git-auto-sync-default-branches.lock"
+
+declare -ag REPOS=()
+declare -Ag SEEN_REPOS=()
+
+usage() {
+    cat <<'EOF'
+Usage:
+  git-auto-sync-default-branches once
+  git-auto-sync-default-branches daemon
+
+Environment:
+  GIT_AUTO_SYNC_CONFIG            path to repo list (default: ~/.config/git-auto-sync/repos.txt)
+  GIT_AUTO_SYNC_INTERVAL          daemon interval in seconds (default: 300)
+  GIT_AUTO_SYNC_DISCOVERY_DEPTH   max depth when discovering repos under a root directory (default: 3)
+EOF
+}
+
+log() {
+    mkdir -p "$LOG_DIR"
+    printf '%s %s\n' "$(date '+%F %T')" "$*" >> "$LOG_FILE"
+}
+
+trim() {
+    local value="$1"
+    value="${value#"${value%%[![:space:]]*}"}"
+    value="${value%"${value##*[![:space:]]}"}"
+    printf '%s\n' "$value"
+}
+
+expand_home() {
+    local value="$1"
+    if [[ "$value" == "~" ]]; then
+        printf '%s\n' "$HOME"
+        return
+    fi
+    if [[ "$value" == ~/* ]]; then
+        printf '%s\n' "$HOME/${value#~/}"
+        return
+    fi
+    printf '%s\n' "$value"
+}
+
+add_repo() {
+    local repo="$1"
+    if [[ -z "$repo" || ! -d "$repo" ]]; then
+        return
+    fi
+    if [[ -n "${SEEN_REPOS[$repo]:-}" ]]; then
+        return
+    fi
+    SEEN_REPOS["$repo"]=1
+    REPOS+=("$repo")
+}
+
+discover_from_root() {
+    local root="$1"
+    local git_dir=""
+
+    while IFS= read -r -d '' git_dir; do
+        add_repo "${git_dir%/.git}"
+    done < <(find "$root" -maxdepth "$DISCOVERY_DEPTH" \( -type d -o -type f \) -name .git -print0 2>/dev/null)
+}
+
+load_repos() {
+    local raw=""
+    local path=""
+    local top_level=""
+
+    REPOS=()
+    declare -gA SEEN_REPOS=()
+
+    if [[ ! -f "$CONFIG_FILE" ]]; then
+        log "skip: config file not found: $CONFIG_FILE"
+        return 1
+    fi
+
+    while IFS= read -r raw || [[ -n "$raw" ]]; do
+        path="$(trim "$raw")"
+
+        if [[ -z "$path" || "$path" == \#* ]]; then
+            continue
+        fi
+
+        path="$(expand_home "$path")"
+
+        top_level="$(git -C "$path" rev-parse --show-toplevel 2>/dev/null || true)"
+        if [[ -n "$top_level" ]]; then
+            add_repo "$top_level"
+            continue
+        fi
+
+        if [[ -d "$path" ]]; then
+            discover_from_root "$path"
+            continue
+        fi
+
+        log "skip: path not found: $path"
+    done < "$CONFIG_FILE"
+
+    return 0
+}
+
+resolve_default_branch() {
+    local repo="$1"
+    local head_ref=""
+
+    head_ref="$(git -C "$repo" symbolic-ref --quiet refs/remotes/origin/HEAD 2>/dev/null || true)"
+    if [[ -z "$head_ref" ]]; then
+        git -C "$repo" remote set-head origin -a >/dev/null 2>&1 || return 1
+        head_ref="$(git -C "$repo" symbolic-ref --quiet refs/remotes/origin/HEAD 2>/dev/null || true)"
+    fi
+
+    if [[ -z "$head_ref" ]]; then
+        return 1
+    fi
+
+    printf '%s\n' "${head_ref##refs/remotes/origin/}"
+}
+
+branch_checked_out_elsewhere() {
+    local repo="$1"
+    local branch="$2"
+    local worktree_path=""
+    local line=""
+
+    while IFS= read -r line; do
+        case "$line" in
+            worktree\ *)
+                worktree_path="${line#worktree }"
+                ;;
+            "branch refs/heads/$branch")
+                if [[ "$worktree_path" != "$repo" ]]; then
+                    return 0
+                fi
+                ;;
+        esac
+    done < <(git -C "$repo" worktree list --porcelain 2>/dev/null)
+
+    return 1
+}
+
+sync_checked_out_default_branch() {
+    local repo="$1"
+    local branch="$2"
+    local target_sha="$3"
+
+    if ! git -C "$repo" diff --quiet --ignore-submodules HEAD --; then
+        log "skip $repo: tracked changes on $branch"
+        return
+    fi
+
+    if ! git -C "$repo" diff --quiet --ignore-submodules --cached --; then
+        log "skip $repo: staged changes on $branch"
+        return
+    fi
+
+    if git -C "$repo" pull --ff-only --quiet origin "$branch" >/dev/null 2>&1; then
+        log "updated $repo: pulled $branch -> ${target_sha:0:12}"
+        return
+    fi
+
+    log "skip $repo: pull failed on $branch"
+}
+
+sync_detached_default_branch() {
+    local repo="$1"
+    local branch="$2"
+    local local_ref="refs/heads/$branch"
+    local local_sha="$3"
+    local target_sha="$4"
+
+    if branch_checked_out_elsewhere "$repo" "$branch"; then
+        log "skip $repo: $branch is checked out in another worktree"
+        return
+    fi
+
+    if git -C "$repo" update-ref "$local_ref" "$target_sha" "$local_sha" >/dev/null 2>&1; then
+        log "updated $repo: fast-forwarded $branch -> ${target_sha:0:12}"
+        return
+    fi
+
+    log "skip $repo: could not fast-forward local $branch"
+}
+
+sync_repo() {
+    local repo="$1"
+    local default_branch=""
+    local local_ref=""
+    local remote_ref=""
+    local current_branch=""
+    local local_sha=""
+    local remote_sha=""
+    local base_sha=""
+
+    if ! git -C "$repo" remote get-url origin >/dev/null 2>&1; then
+        log "skip $repo: origin remote not found"
+        return
+    fi
+
+    default_branch="$(resolve_default_branch "$repo" || true)"
+    if [[ -z "$default_branch" ]]; then
+        log "skip $repo: could not resolve origin HEAD"
+        return
+    fi
+
+    if ! git -C "$repo" fetch --quiet --prune origin "$default_branch" >/dev/null 2>&1; then
+        git -C "$repo" remote set-head origin -a >/dev/null 2>&1 || true
+        default_branch="$(resolve_default_branch "$repo" || true)"
+        if [[ -z "$default_branch" ]]; then
+            log "skip $repo: could not resolve origin HEAD after fetch failure"
+            return
+        fi
+        if ! git -C "$repo" fetch --quiet --prune origin "$default_branch" >/dev/null 2>&1; then
+            log "skip $repo: fetch failed for origin/$default_branch"
+            return
+        fi
+    fi
+
+    local_ref="refs/heads/$default_branch"
+    remote_ref="refs/remotes/origin/$default_branch"
+
+    if ! git -C "$repo" show-ref --verify --quiet "$local_ref"; then
+        log "skip $repo: local $default_branch does not exist"
+        return
+    fi
+
+    if ! git -C "$repo" show-ref --verify --quiet "$remote_ref"; then
+        log "skip $repo: remote $default_branch does not exist"
+        return
+    fi
+
+    current_branch="$(git -C "$repo" symbolic-ref --quiet --short HEAD 2>/dev/null || true)"
+    local_sha="$(git -C "$repo" rev-parse "$local_ref" 2>/dev/null || true)"
+    remote_sha="$(git -C "$repo" rev-parse "$remote_ref" 2>/dev/null || true)"
+
+    if [[ -z "$local_sha" || -z "$remote_sha" || "$local_sha" == "$remote_sha" ]]; then
+        return
+    fi
+
+    base_sha="$(git -C "$repo" merge-base "$local_ref" "$remote_ref" 2>/dev/null || true)"
+    if [[ -z "$base_sha" ]]; then
+        log "skip $repo: could not compute merge-base for $default_branch"
+        return
+    fi
+
+    if [[ "$local_sha" != "$base_sha" ]]; then
+        if [[ "$remote_sha" == "$base_sha" ]]; then
+            log "skip $repo: local $default_branch is ahead of origin/$default_branch"
+            return
+        fi
+        log "skip $repo: local $default_branch diverged from origin/$default_branch"
+        return
+    fi
+
+    if [[ "$current_branch" == "$default_branch" ]]; then
+        sync_checked_out_default_branch "$repo" "$default_branch" "$remote_sha"
+        return
+    fi
+
+    sync_detached_default_branch "$repo" "$default_branch" "$local_sha" "$remote_sha"
+}
+
+sync_all_repos() {
+    local repo=""
+
+    if ! load_repos; then
+        return
+    fi
+
+    for repo in "${REPOS[@]}"; do
+        sync_repo "$repo"
+    done
+}
+
+acquire_lock() {
+    local existing_pid=""
+
+    if mkdir "$LOCK_DIR" 2>/dev/null; then
+        printf '%s\n' "$$" > "$LOCK_DIR/pid"
+        trap 'rm -rf "$LOCK_DIR"' EXIT INT TERM
+        return 0
+    fi
+
+    existing_pid="$(cat "$LOCK_DIR/pid" 2>/dev/null || true)"
+    if [[ -n "$existing_pid" ]] && kill -0 "$existing_pid" 2>/dev/null; then
+        log "daemon already running: pid=$existing_pid"
+        return 1
+    fi
+
+    rm -rf "$LOCK_DIR" 2>/dev/null || true
+    if mkdir "$LOCK_DIR" 2>/dev/null; then
+        printf '%s\n' "$$" > "$LOCK_DIR/pid"
+        trap 'rm -rf "$LOCK_DIR"' EXIT INT TERM
+        return 0
+    fi
+
+    log "skip: could not acquire daemon lock"
+    return 1
+}
+
+validate_interval() {
+    if [[ "$INTERVAL_SECONDS" =~ ^[0-9]+$ ]] && [[ "$INTERVAL_SECONDS" -gt 0 ]]; then
+        return 0
+    fi
+
+    printf 'GIT_AUTO_SYNC_INTERVAL must be a positive integer\n' >&2
+    return 1
+}
+
+run_daemon() {
+    if ! validate_interval; then
+        exit 1
+    fi
+
+    if ! acquire_lock; then
+        exit 0
+    fi
+
+    log "daemon started: interval=${INTERVAL_SECONDS}s config=$CONFIG_FILE"
+    while true; do
+        sync_all_repos
+        sleep "$INTERVAL_SECONDS"
+    done
+}
+
+MODE="${1:-once}"
+
+case "$MODE" in
+    once)
+        sync_all_repos
+        ;;
+    daemon)
+        run_daemon
+        ;;
+    help|-h|--help)
+        usage
+        ;;
+    *)
+        usage >&2
+        exit 1
+        ;;
+esac

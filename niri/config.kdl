@@ -20,7 +20,7 @@ input {
     touchpad {
         tap
         natural-scroll
-        scroll-factor 0.8
+        scroll-factor 0.5
     }
 }
 output "eDP-1" {
@@ -67,9 +67,10 @@ spawn-at-startup "mako"
 spawn-at-startup "pipewire"
 spawn-at-startup "swaybg" "-i" "/home/mame/Images/ml1.jpeg" "-m" "stretch"
 spawn-at-startup "sh" "-c" "/home/mame/.config/niri/scripts/battery-monitor.sh"
+spawn-at-startup "/home/mame/.local/bin/git-auto-sync-default-branches" "daemon"
 spawn-at-startup "hyprlock"
 environment {
-    DISPLAY ":0"
+    DISPLAY ":1"
     XDG_SESSION_TYPE "wayland"
     QT_QPA_PLATFORM "wayland"
     GDK_BACKEND "wayland"
@@ -83,11 +84,14 @@ environment {
 
 binds {
     // app
+    Mod+B     { spawn "obsidian"; }
     Mod+C     { spawn "chromium"; }
     Mod+F     { spawn "fuzzel"; }
-    Mod+W     { spawn "zen"; }
+    Mod+V     { spawn-sh "/home/mame/.local/opt/OpenCode/ai.opencode.desktop --no-sandbox"; }
+    Mod+W     { spawn "sh" "-c" "/home/mame/.config/niri/scripts/codex-desktop.sh"; }
     Mod+R     { spawn "wlogout"; }
     Mod+T     { spawn-sh "ghostty --class='app' --command='tmux'"; }
+    Mod+N     { spawn-sh "ghostty --class='app' --command='env TERM=xterm-256color ssh -tt nix'"; }
     // web
     Mod+G     { spawn-sh "chromium --new-window --app='https://grok.com/'"; }
     Mod+S     { spawn-sh "chromium --new-window --app='https://app.slack.com/client/'"; }

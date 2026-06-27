@@ -1,0 +1,12 @@
+# Write one repo path or one parent directory per line.
+# Parent directories are scanned recursively for .git up to depth 3.
+#
+# Examples:
+# ~/github/my-repo
+# ~/src
+
+~/github
+~/src
+~/school
+~/digeon
+~/practice

@@ -3,6 +3,8 @@ theme = "catppuccin-latte.conf"
 font-family = "Iosevka"
 font-size = 17
 font-feature = -dlig
+# shell
+command = /usr/bin/nu
 # cursor
 cursor-style = block
 cursor-style-blink = false
@@ -18,3 +20,4 @@ window-padding-y = 6
 gtk-titlebar = true
 confirm-close-surface = false
 keybind = ctrl+enter=text:\r
+keybind = shift+enter=text:\r

@@ -1,11 +1,13 @@
-local vue_language_server_path = os.getenv("BUN_INSTALL") .. "/install/global/node_modules/@vue/language-server/"
-local vue_plugin = {
-    name = '@vue/typescript-plugin',
-    location = vue_language_server_path,
-    languages = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+local vue_plugin = require("lsp_utils").vue_ts_plugin()
+local filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" }
+
+local config = {
+    filetypes = filetypes,
 }
-vim.lsp.config('vtsls', {
-    settings = {
+
+if vue_plugin then
+    table.insert(filetypes, "vue")
+    config.settings = {
         vtsls = {
             tsserver = {
                 globalPlugins = {
@@ -13,6 +15,7 @@ vim.lsp.config('vtsls', {
                 },
             },
         },
-    },
-    filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-})
+    }
+end
+
+return config

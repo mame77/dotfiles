@@ -96,11 +96,21 @@ vim.keymap.set('n', '<leader>d', function() vim.diagnostic.setqflist({ vim.diagn
 
 --lsp
 vim.lsp.enable('gopls')
-vim.lsp.enable('ts_ls')
+if vim.fn.executable('vtsls') == 1 then
+    vim.lsp.enable('vtsls')
+else
+    vim.lsp.enable('ts_ls')
+end
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('bashls')
 vim.lsp.enable('yamlls')
 vim.lsp.enable('emmet_ls')
+if vim.fn.executable('vue-language-server') == 1 then
+    vim.lsp.enable('vue_ls')
+end
+if vim.fn.executable('deno') == 1 then
+    vim.lsp.enable('denols')
+end
 
 -- colorscheme
 vim.cmd('colorscheme catppuccin-latte');
